@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MyButtonConfig} from "./my-button/my-button-config";
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "./my-table/my-table-config";
-import {User} from "./user/user-config";
+
 
 
 
@@ -11,10 +9,14 @@ import {User} from "./user/user-config";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  isAdmin!: boolean;
 
   constructor() {
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isAdmin = true
+  }
 
 }

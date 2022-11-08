@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-my-navbar',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyNavbarComponent implements OnInit {
 
+  @Input() isAdmin!: boolean;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.isAdmin = true
   }
 
 }
