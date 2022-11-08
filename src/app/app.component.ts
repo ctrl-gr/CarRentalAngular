@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MyButtonConfig} from "./my-button/my-button-config";
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "./my-table/my-table-config";
-import {User} from "./users/users-config";
+import {User} from "./user/user-config";
 import {UserService} from "./services/user.service";
 
 

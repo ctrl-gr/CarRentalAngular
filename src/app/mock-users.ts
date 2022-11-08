@@ -1,4 +1,4 @@
-import { User } from './users/users-config';
+import { User } from './user/user-config';
 
 export const USERS: User[] = [
   {id: 1, firstName: 'Mario', lastName: 'Bros', birthDate: new Date (1970-1-1), username: 'supermario', password: 'ciaociao'},

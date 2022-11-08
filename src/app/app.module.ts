@@ -16,12 +16,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { InMemoryDataService} from './in-memory-data.service';
 import {HttpClientModule} from '@angular/common/http';
-import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { CarsComponent } from './cars/cars.component';
+import { BookingComponent } from './booking/booking.component';
+import { BookingListComponent } from './booking-list/booking-list.component';
 
 
 @NgModule({
@@ -33,12 +35,14 @@ import { CarsComponent } from './cars/cars.component';
     PaginationPipe,
     OrderByPipe,
     MyNavbarComponent,
-    UsersComponent,
+    UserComponent,
     UserListComponent,
     AddUserComponent,
     HomepageComponent,
     CarListComponent,
     CarsComponent,
+    BookingComponent,
+    BookingListComponent,
   ],
   imports: [
     BrowserModule,
