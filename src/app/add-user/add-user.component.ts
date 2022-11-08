@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../user/user-config";
 import {UserService} from "../services/user.service";
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-add-user',
@@ -11,7 +11,7 @@ import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 export class AddUserComponent implements OnInit {
 
   users: User[] = []
-  userform: FormGroup;
+  userform!: FormGroup;
 
   constructor(private userService: UserService) { }
 
@@ -25,9 +25,9 @@ export class AddUserComponent implements OnInit {
     })
   }
 
-  addUser(user: User) {
+  addEditUser(userform: FormGroup) {
     //id?
-  this.userService.addUser({
+  this.userService.addEditUser({
     id: 1,
     firstName: this.userform.value.firstName,
     lastName: this.userform.value.lastName,
@@ -39,6 +39,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     // create a method that takes data from form and add a user
-    console.log(form)
+    this.addEditUser(this.userform)
+    console.log(this.userform)
   }
 }

@@ -1,18 +1,18 @@
 <form [formGroup]="userform" (click)="onSubmit(userform)">
   <label for="firstName"> First name:
-  <input type="text" id="firstName" formControlName="firstName" />
+  <input type="text" id="firstName" name="firstName" formControlName="firstName" />
   </label>
   <label for="lastName"> Last name:
-    <input type="text" id="lastName" formControlName="lastName" />
+    <input type="text" id="lastName" name="lastName" formControlName="lastName" />
   </label>
   <label for="birthDate"> Date of birth:
-    <input type="date" id="birthDate" formControlName="birthDate" />
+    <input type="date" id="birthDate" name="birthDate" formControlName="birthDate" />
   </label>
   <label for="username"> Username:
-    <input type="text" id="username" formControlName="username" />
+    <input type="text" id="username" name="username" formControlName="username" />
   </label>
   <label for="password"> Password:
-    <input type="password" id="password" formControlName="password" />
+    <input type="password" id="password" name="password" formControlName="password" />
   </label>
   <input type="submit" [disabled]="!userform.valid" value="invia">
 </form>

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MyButtonConfig} from "./my-button/my-button-config";
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "./my-table/my-table-config";
 import {User} from "./user/user-config";
-import {UserService} from "./services/user.service";
+
 
 
 @Component({
@@ -20,12 +20,7 @@ export class AppComponent implements OnInit {
   actions !: MyAction[];
   users: User[]=[]
 
-  constructor(private userService: UserService){}
-  getUsers(){
-    this.userService.getUsers().subscribe(user => {
-      this.users=user;
-    });
-  }
+  constructor(){}
 
   ngOnInit() {
     this.config = {
@@ -100,11 +95,10 @@ export class AppComponent implements OnInit {
     }
 
     this.data = [{
-      users: this.users
+      //?
     }
     ]
 
-    this.getUsers();
   }
 
   actionToPerform(myObject: any) {
