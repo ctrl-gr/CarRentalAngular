@@ -7,7 +7,7 @@ import { MyButtonComponent } from './my-button/my-button.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { MyTableComponent } from './my-table/my-table.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchFilterPipe } from './search-filter.pipe';
 import { PaginationPipe } from './pagination.pipe';
 import {OrderByPipe} from "./sorting.pipe";
@@ -51,7 +51,8 @@ import { BookingListComponent } from './booking-list/booking-list.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule, // remove it when a real server is ready to receive requests
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false})
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
