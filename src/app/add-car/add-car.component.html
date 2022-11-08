@@ -1,0 +1,21 @@
+<form [formGroup]="carform" (click)="onSubmit(carform)">
+  <label for="licensePlate"> License plate:
+    <input type="text" id="licensePlate" name="licensePlate" formControlName="licensePlate" />
+  </label>
+  <label for="manufacturer"> Manufacturer:
+    <input type="text" id="manufacturer" name="manufacturer" formControlName="manufacturer" />
+  </label>
+  <label for="model"> Model:
+    <input type="text" id="model" name="model" formControlName="model" />
+  </label>
+  <label for="type"> Type:
+    <input type="text" id="type" name="type" formControlName="type" />
+  </label>
+  <label for="year"> Year:
+    <input type="number" id="year" name="year" formControlName="year" />
+  </label>
+  <label for="seats"> Seats:
+    <input type="number" id="seats" name="seats" formControlName="seats" />
+  </label>
+  <input type="submit" [disabled]="!carform.valid" value="invia">
+</form>
