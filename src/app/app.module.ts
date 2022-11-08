@@ -21,9 +21,10 @@ import { UserListComponent } from './user-list/user-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CarListComponent } from './car-list/car-list.component';
-import { CarsComponent } from './cars/cars.component';
+import { CarComponent } from './car/car.component';
 import { BookingComponent } from './booking/booking.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
+import { AddCarComponent } from './add-car/add-car.component';
 
 
 @NgModule({
@@ -40,9 +41,10 @@ import { BookingListComponent } from './booking-list/booking-list.component';
     AddUserComponent,
     HomepageComponent,
     CarListComponent,
-    CarsComponent,
+    CarComponent,
     BookingComponent,
     BookingListComponent,
+    AddCarComponent,
   ],
   imports: [
     BrowserModule,

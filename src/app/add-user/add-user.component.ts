@@ -38,7 +38,6 @@ export class AddUserComponent implements OnInit {
 }
 
   onSubmit(form: FormGroup) {
-    // create a method that takes data from form and add a user
     this.addEditUser(this.userform)
     console.log(this.userform)
   }
