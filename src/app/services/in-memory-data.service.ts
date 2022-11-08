@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { User } from './user/user-config';
-import {Car} from "./car/car-config";
+import { User } from '../user/user-config';
+import {Car} from "../car/car-config";
 import {formatDate} from "@angular/common";
+import {Booking} from "../booking/booking-config";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,15 @@ export class InMemoryDataService implements InMemoryDbService {
       {id: 2, licensePlate: 'GA000AA', manufacturer: 'BMW', model: 'X4', type: 'SUV', year: 2022, seats: 5}
     ];
 
+    const bookings: Booking[]= [
+      {id: 1, startDate: new Date(), endDate: new Date(formatDate('01/01/1970', 'dd/MM/yyyy', 'en-US')), username: 'superluigi', licensePlate: 'EW060YE', approved: true}, //TODO set up date correctly
+      {id: 2, startDate: new Date(), endDate: new Date(formatDate('01/01/1970', 'dd/MM/yyyy', 'en-US')), username: 'sandrino', licensePlate: 'GA000AA', approved: false}
+
+    ];
 
 
-    return {users, cars}
+
+    return {users, cars, bookings}
   }
   constructor() { }
 }

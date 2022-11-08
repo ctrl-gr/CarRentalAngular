@@ -28,6 +28,7 @@ export interface MyPagination {
 export enum MyTableActionEnum {
   EDIT = 'edit',
   DELETE = 'delete',
+  APPROVE = 'approve',
   NEW_ROW = 'new-row'
 }
 
