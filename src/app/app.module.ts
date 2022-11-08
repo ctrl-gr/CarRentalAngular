@@ -25,6 +25,7 @@ import { CarComponent } from './car/car.component';
 import { BookingComponent } from './booking/booking.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { AddCarComponent } from './add-car/add-car.component';
+import { AddBookingComponent } from './add-booking/add-booking.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AddCarComponent } from './add-car/add-car.component';
     BookingComponent,
     BookingListComponent,
     AddCarComponent,
+    AddBookingComponent,
   ],
   imports: [
     BrowserModule,
