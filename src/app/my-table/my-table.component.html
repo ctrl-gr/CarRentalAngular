@@ -1,0 +1,58 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<select id="selectLabels" [(ngModel)]="selected">
+  <ng-container *ngFor="let header of tableConfig.headers">
+    <option value="{{header.key}}">
+      {{header.label}}
+    </option>
+  </ng-container>
+</select>
+<input class="searchTerm" type="text" name="searchTerm" placeholder="Enter text to search" [(ngModel)]="searchTerm"/>
+<br/> <br/>
+<ng-container *ngFor="let action of tableConfig.actions">
+  <div *ngIf="action.onTop">
+    <app-my-button [buttonConfig]="{text: action.text, customCssClass: action.cssClass, icon: action.icon}" (click)="actionToOutput(action.actionType)" >
+    </app-my-button>
+  </div>
+</ng-container>
+<table>
+  <tr>
+    <td *ngFor="let header of tableConfig.headers">
+      {{header.label}}
+      <ng-container *ngIf="header.key != 'actions'">
+        <button *ngIf="tableConfig.order.orderType === 'desc'" (click)="setOrder('asc', header.key)">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button *ngIf="tableConfig.order.orderType === 'asc'" (click)="setOrder('desc', header.key)">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+      </ng-container>
+    </td>
+  </tr>
+  <tr
+    *ngFor="let dataRow of (data | orderBy: tableConfig.order.defaultColumn : tableConfig.order.orderType | searchFilter : selected : searchTerm | pagination : tableConfig.pagination.itemPerPage: pageIndex )">
+    <ng-container *ngFor="let header of tableConfig.headers">
+      <td *ngIf="header.key != 'actions'">
+        {{dataRow[header.key]}}
+      </td>
+    </ng-container>
+    <td>
+      <ng-container *ngFor="let action of tableConfig.actions">
+        <div *ngIf="!action.onTop">
+          <app-my-button [buttonConfig]="{text: action.text, customCssClass: action.cssClass, icon: action.icon}"
+                         (click)="actionToOutput(action.actionType, dataRow)"></app-my-button>
+        </div>
+      </ng-container>
+    </td>
+  </tr>
+</table>
+<select name="itemsPerPageOptions" (change)="changePageOptions($event)">
+  <option *ngFor="let option of tableConfig.pagination.itemPerPageOptions" value="{{option}}">{{option}}</option>
+</select>
+<button *ngIf="pageIndex > 0" (click)="pageNavigation('previous')">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<button *ngIf="pageIndex+1 < totalPages" (click)="pageNavigation('next')">
+  <mat-icon>arrow_forward</mat-icon>
+</button>
+
+

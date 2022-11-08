@@ -1,0 +1,11 @@
+<div *ngIf="buttonConfig.icon != ''; then icon else elseBlock"></div>
+<ng-template #icon>
+  <button [class]="buttonConfig.customCssClass">{{buttonConfig.text}}
+    <mat-icon *ngIf="buttonConfig.icon" fontIcon="{{buttonConfig.icon}}"></mat-icon>
+  </button>
+</ng-template>
+
+<ng-template #elseBlock>
+  <button [class]="buttonConfig.customCssClass">{{buttonConfig.text}}</button>
+</ng-template>
+

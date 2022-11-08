@@ -1,0 +1,18 @@
+<form #userform="ngForm" (ngSubmit)="onSubmit(userform)">
+  <label for="firstName"> First name:
+  <input type="text" id="firstName" name="firstName" ngModel required/>
+  </label>
+  <label for="lastName"> Last name:
+    <input type="text" id="lastName" name="lastName" ngModel required/>
+  </label>
+  <label for="birthDate"> Date of birth:
+    <input type="date" id="birthDate" name="birthDate" ngModel required/>
+  </label>
+  <label for="username"> Username:
+    <input type="text" id="username" name="username" ngModel required/>
+  </label>
+  <label for="password"> Password:
+    <input type="password" id="password" name="password" ngModel required />
+  </label>
+  <input type="submit" [disabled]="!userform.valid" value="invia">
+</form>
