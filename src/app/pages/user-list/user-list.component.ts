@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../user/user-config";
-import {UserService} from "../services/user.service";
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../my-table/my-table-config";
+import {User} from "../../entities/user/user-config";
+import {UserService} from "../../services/user.service";
+import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
 import { Router } from '@angular/router';
 
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../my-table/my-table-config";
-import {Car} from "../car/car-config";
-import {CarService} from "../services/car.service";
+import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
+import {Car} from "../../entities/car/car-config";
+import {CarService} from "../../services/car.service";
 import {Router} from '@angular/router';
 
 @Component({
