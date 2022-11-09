@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user/user-config";
 import {UserService} from "../../services/user.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-user',
@@ -13,7 +15,13 @@ export class AddUserComponent implements OnInit {
   users: User[] = []
   userform!: FormGroup;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    public fb: FormBuilder,
+    public authService: AuthService,
+    public router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.userform = new FormGroup({
@@ -25,20 +33,13 @@ export class AddUserComponent implements OnInit {
     })
   }
 
-  addEditUser(userform: FormGroup) {
-    //id?
-  this.userService.addEditUser({
-    id: 1,
-    firstName: this.userform.value.firstName,
-    lastName: this.userform.value.lastName,
-    birthDate: this.userform.value.birthDate,
-    username: this.userform.value.username,
-    password: this.userform.value.password
-  })
-}
-
-  onSubmit(form: FormGroup) {
-    this.addEditUser(this.userform)
-    console.log(this.userform)
+  registerUser() {
+    this.authService.signUp(this.userform.value).subscribe((res) => {
+      if (res.result) {
+        this.userform.reset();
+        this.router.navigate(['login']);
+      }
+    });
   }
 }
+

@@ -4,6 +4,9 @@ import {User} from '../models/user/user-config';
 import {Car} from "../models/car/car-config";
 import {formatDate} from "@angular/common";
 import {Booking} from "../models/booking/booking-config";
+import * as moment from 'moment';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         firstName: 'Mario',
         lastName: 'Bros',
-        birthDate: new Date(formatDate('10/01/1970', 'dd/MM/yyyy', 'en-US', '')), //TODO moment.js
+        birthDate: moment(new Date('10/01/1970')).format('DD/MM/YYYY'),
         username: 'supermario',
         password: 'ciaociao'
       },
@@ -64,9 +67,8 @@ export class InMemoryDataService implements InMemoryDbService {
 
     return {users, cars, bookings}
   }
-
-  constructor() {
-  }
 }
+
+
 
 

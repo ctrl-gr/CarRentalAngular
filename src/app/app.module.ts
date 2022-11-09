@@ -15,7 +15,7 @@ import { MyNavbarComponent } from './components/my-navbar/my-navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { InMemoryDataService} from './services/in-memory-data.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserComponent } from './models/user/user.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
@@ -28,6 +28,7 @@ import { AddCarComponent } from './pages/add-car/add-car.component';
 import { AddBookingComponent } from './pages/add-booking/add-booking.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import {AuthInterceptor} from "./auth/auth-interceptor";
 
 
 
@@ -63,7 +64,11 @@ import { LogoutComponent } from './pages/logout/logout.component';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
