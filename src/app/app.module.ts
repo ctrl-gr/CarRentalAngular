@@ -8,9 +8,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { MyTableComponent } from './my-table/my-table.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { SearchFilterPipe } from './search-filter.pipe';
-import { PaginationPipe } from './pagination.pipe';
-import {OrderByPipe} from "./sorting.pipe";
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { PaginationPipe } from './pipes/pagination.pipe';
+import {OrderByPipe} from "./pipes/sorting.pipe";
 import { MyNavbarComponent } from './my-navbar/my-navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
@@ -26,6 +26,7 @@ import { BookingComponent } from './booking/booking.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { AddCarComponent } from './add-car/add-car.component';
 import { AddBookingComponent } from './add-booking/add-booking.component';
+import {CustomDatePipe} from "./pipes/custom.datepipe";
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { AddBookingComponent } from './add-booking/add-booking.component';
     BookingListComponent,
     AddCarComponent,
     AddBookingComponent,
+    CustomDatePipe,
   ],
   imports: [
     BrowserModule,

@@ -11,9 +11,9 @@ import {Booking} from "../booking/booking-config";
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const users: User[]= [
-      {id: 1, firstName: 'Mario', lastName: 'Bros', birthDate: new Date(formatDate('01/01/1970', 'dd/MM/yyyy', 'en-US')), username: 'supermario', password: 'ciaociao'},
-      {id: 2, firstName: 'Luigi', lastName: 'Bros', birthDate: new Date(formatDate('08/05/1980', 'dd/MM/yyyy', 'en-US')), username: 'superluigi', password: 'notaciao'},
-      {id: 3, firstName: 'Sandro', lastName: 'Tonali', birthDate: new Date(formatDate('08/10/2000', 'dd/MM/yyyy', 'en-US')), username: 'sandrino', password: 'sonoforte'}
+      {id: 1, firstName: 'Mario', lastName: 'Bros', birthDate: new Date('01/01/1987'), username: 'supermario', password: 'ciaociao'},
+      {id: 2, firstName: 'Luigi', lastName: 'Bros', birthDate: new Date('08/05/1980'), username: 'superluigi', password: 'notaciao'},
+      {id: 3, firstName: 'Sandro', lastName: 'Tonali', birthDate: new Date('08/10/2000'), username: 'sandrino', password: 'sonoforte'}
     ];
 
     const cars: Car[]= [
@@ -27,9 +27,16 @@ export class InMemoryDataService implements InMemoryDbService {
 
     ];
 
-
-
     return {users, cars, bookings}
   }
   constructor() { }
+
+}
+
+
+
+function formatMyDate(date: Date) {
+  return ([
+    date.getDate(), date.getMonth()+1, date.getFullYear()
+  ].join('-'))
 }
