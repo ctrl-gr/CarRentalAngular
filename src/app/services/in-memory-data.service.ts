@@ -15,7 +15,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         firstName: 'Mario',
         lastName: 'Bros',
-        birthDate: new Date(formatDate('10/01/1970', 'dd/MM/yyyy', 'en-US', '')),
+        birthDate: new Date(formatDate('10/01/1970', 'dd/MM/yyyy', 'en-US', '')), //TODO moment.js
         username: 'supermario',
         password: 'ciaociao'
       },

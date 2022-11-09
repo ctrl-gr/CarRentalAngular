@@ -17,11 +17,11 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.userform = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      birthDate: new FormControl(null, Validators.required),
-      username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      firstName: new FormControl(Validators.compose([Validators.required, Validators.min(3), Validators.max(20)])),
+      lastName: new FormControl(Validators.compose([Validators.required, Validators.min(3), Validators.max(20)])),
+      birthDate: new FormControl(Validators.compose([Validators.required])), // TODO implements correct date validator
+      username: new FormControl(Validators.compose([Validators.required, Validators.min(3), Validators.max(12)])),
+      password: new FormControl(Validators.compose([Validators.required, Validators.min(8), Validators.max(15)]))
     })
   }
 
