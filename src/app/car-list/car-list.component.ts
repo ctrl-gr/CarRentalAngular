@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../my-table/my-table-config";
 import {Car} from "../car/car-config";
 import {CarService} from "../services/car.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-car-list',
@@ -19,7 +20,8 @@ export class CarListComponent implements OnInit {
   data!: any[];
 
 
-  constructor(private carService: CarService) {
+  constructor(private carService: CarService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -53,7 +55,7 @@ export class CarListComponent implements OnInit {
         onTop: false
       },
       {
-        text: 'nuovo dato',
+        text: 'nuova auto',
         cssClass: 'btn btn-primary',
         actionType: MyTableActionEnum.NEW_ROW,
         icon: 'add',
@@ -117,7 +119,7 @@ export class CarListComponent implements OnInit {
         break;
       }
       case 'new-row': {
-        console.log('redirect to new car') //TODO
+        this.router.navigate(['newcar'])
         break;
       }
     }

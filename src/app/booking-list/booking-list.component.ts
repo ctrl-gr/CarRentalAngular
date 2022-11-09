@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../my-table/my-table-config";
 import {Booking} from "../booking/booking-config";
 import {BookingService} from "../services/booking.service";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-booking-list',
   templateUrl: './booking-list.component.html',
@@ -19,7 +19,10 @@ export class BookingListComponent implements OnInit {
   data!: any[];
 
 
-  constructor(private bookingService: BookingService) {
+  constructor(
+    private bookingService: BookingService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -113,7 +116,7 @@ export class BookingListComponent implements OnInit {
         break;
       }
       case 'new-row': {
-        console.log('add routing to new booking') //TODO
+        this.router.navigate(['newbooking'])//TODO
         break;
       }
     }

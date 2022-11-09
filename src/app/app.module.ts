@@ -26,7 +26,7 @@ import { BookingComponent } from './booking/booking.component';
 import { BookingListComponent } from './booking-list/booking-list.component';
 import { AddCarComponent } from './add-car/add-car.component';
 import { AddBookingComponent } from './add-booking/add-booking.component';
-import {CustomDatePipe} from "./pipes/custom.datepipe";
+
 
 
 @NgModule({
@@ -48,7 +48,6 @@ import {CustomDatePipe} from "./pipes/custom.datepipe";
     BookingListComponent,
     AddCarComponent,
     AddBookingComponent,
-    CustomDatePipe,
   ],
   imports: [
     BrowserModule,

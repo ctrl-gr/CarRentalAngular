@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../user/user-config";
 import {UserService} from "../services/user.service";
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../my-table/my-table-config";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,10 @@ export class UserListComponent implements OnInit {
   data!: any[];
 
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -54,7 +58,7 @@ export class UserListComponent implements OnInit {
         onTop: false
       },
       {
-        text: 'nuovo dato',
+        text: 'nuovo utente',
         cssClass: 'btn btn-primary',
         actionType: MyTableActionEnum.NEW_ROW,
         icon: 'add',
@@ -114,8 +118,8 @@ export class UserListComponent implements OnInit {
         this.userService.deleteUser(user.id)
         break;
       }
-      case 'new-row': { // this is not taking anything in input
-        console.log('redirect to new user') //TODO
+      case 'new-row': {
+        this.router.navigate(['add'])
         break;
       }
     }
