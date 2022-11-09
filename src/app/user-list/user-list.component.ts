@@ -103,18 +103,19 @@ export class UserListComponent implements OnInit {
 
     console.log(myObject)
     let action = myObject.action
+    let user = myObject.row
 
     switch (action) {
       case 'edit': {
-        console.log('element ready to get edited')
+        this.userService.addEditUser(user)
         break;
       }
       case 'delete': {
-        console.log('element deleted')
+        this.userService.deleteUser(user.id)
         break;
       }
       case 'new-row': { // this is not taking anything in input
-        console.log('new element')
+        console.log('redirect to new user') //TODO
         break;
       }
     }

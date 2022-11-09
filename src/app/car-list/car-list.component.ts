@@ -105,18 +105,19 @@ export class CarListComponent implements OnInit {
 
     console.log(myObject)
     let action = myObject.action
+    let car = myObject.row
 
     switch (action) {
       case 'edit': {
-
+        this.carService.addEditCar(car)
         break;
       }
       case 'delete': {
-        console.log('element deleted')
+        this.carService.deleteCar(car.id)
         break;
       }
-      case 'new-row': { // this is not taking anything in input
-        console.log('new element')
+      case 'new-row': {
+        console.log('redirect to new car') //TODO
         break;
       }
     }
@@ -125,7 +126,6 @@ export class CarListComponent implements OnInit {
   getCars() {
     this.carService.getCars().subscribe(data => {
       this.cars = data;
-      console.log(this.cars)
     });
   }
 

@@ -101,18 +101,19 @@ export class BookingListComponent implements OnInit {
 
     console.log(myObject)
     let action = myObject.action
+    let booking = myObject.row
 
     switch (action) {
       case 'approve': {
-
+        this.bookingService.addApproveBooking(booking)
         break;
       }
       case 'delete': {
-        console.log('element deleted')
+        this.bookingService.deleteBooking(booking.id)
         break;
       }
-      case 'new-row': { // this is not taking anything in input
-        console.log('new element')
+      case 'new-row': {
+        console.log('add routing to new booking') //TODO
         break;
       }
     }
@@ -121,7 +122,6 @@ export class BookingListComponent implements OnInit {
   getBookings() {
     this.bookingService.getBookings().subscribe(data => {
       this.bookings = data;
-      console.log(this.bookings)
     });
   }
 
