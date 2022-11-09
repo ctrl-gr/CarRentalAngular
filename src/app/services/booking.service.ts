@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {Booking} from "../entities/booking/booking-config";
+import {Booking} from "../models/booking/booking-config";
 
 @Injectable({
   providedIn: 'root'

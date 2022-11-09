@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {InMemoryDbService} from 'angular-in-memory-web-api';
-import {User} from '../entities/user/user-config';
-import {Car} from "../entities/car/car-config";
+import {User} from '../models/user/user-config';
+import {Car} from "../models/car/car-config";
 import {formatDate} from "@angular/common";
-import {Booking} from "../entities/booking/booking-config";
+import {Booking} from "../models/booking/booking-config";
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
-import {Booking} from "../../entities/booking/booking-config";
+import {Booking} from "../../models/booking/booking-config";
 import {BookingService} from "../../services/booking.service";
 import { Router } from '@angular/router';
 @Component({
