@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/user/user-config";
+import {User} from "../../models/user-config";
 import {UserService} from "../../services/user.service";
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
 import { Router } from '@angular/router';
@@ -96,7 +96,7 @@ export class UserListComponent implements OnInit {
     }
 
     this.data = [{
-      users: this.getUsers()
+      //users: this.getUsers()
     }
     ]
 
@@ -111,11 +111,11 @@ export class UserListComponent implements OnInit {
 
     switch (action) {
       case 'edit': {
-        this.userService.addEditUser(user)
+        console.log('edit')
         break;
       }
       case 'delete': {
-        this.userService.deleteUser(user.id)
+        console.log('delete')
         break;
       }
       case 'new-row': {
@@ -125,11 +125,6 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
-      console.log(this.users)
-    });
-  }
+
 
 }

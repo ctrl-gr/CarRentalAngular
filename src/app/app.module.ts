@@ -16,20 +16,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { InMemoryDataService} from './services/in-memory-data.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { UserComponent } from './models/user/user.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { CarListComponent } from './pages/car-list/car-list.component';
-import { CarComponent } from './models/car/car.component';
-import { BookingComponent } from './models/booking/booking.component';
 import { BookingListComponent } from './pages/booking-list/booking-list.component';
 import { AddCarComponent } from './pages/add-car/add-car.component';
 import { AddBookingComponent } from './pages/add-booking/add-booking.component';
 import { LoginComponent } from './pages/login/login.component';
-import { LogoutComponent } from './pages/logout/logout.component';
-import {AuthInterceptor} from "./auth/auth-interceptor";
-
+import { AuthInterceptor} from "./auth/auth-interceptor";
 
 
 @NgModule({
@@ -41,18 +36,15 @@ import {AuthInterceptor} from "./auth/auth-interceptor";
     PaginationPipe,
     OrderByPipe,
     MyNavbarComponent,
-    UserComponent,
     UserListComponent,
     AddUserComponent,
     HomepageComponent,
     CarListComponent,
-    CarComponent,
-    BookingComponent,
     BookingListComponent,
     AddCarComponent,
     AddBookingComponent,
     LoginComponent,
-    LogoutComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -60,15 +52,17 @@ import {AuthInterceptor} from "./auth/auth-interceptor";
     MatIconModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule, // remove it when a real server is ready to receive requests
+    HttpClientModule, // remove it when a real server is ready to receive requests?
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     ReactiveFormsModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

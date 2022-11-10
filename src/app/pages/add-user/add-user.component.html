@@ -1,7 +1,7 @@
 <div class="auth-wrapper">
   <form
     class="form-signin"
-    [formGroup]="userform"
+    [formGroup]="signupForm"
     (ngSubmit)="registerUser()"
   >
     <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up</h3>
@@ -18,7 +18,7 @@
     <div class="form-group">
       <label>Last name</label>
       <input
-        type="text"
+        type="email"
         class="form-control"
         formControlName="lastName"
         placeholder="Enter last name"
@@ -26,12 +26,12 @@
       />
     </div>
     <div class="form-group">
-      <label>Date of Birth</label>
+      <label>Date of birth</label>
       <input
         type="date"
         class="form-control"
         formControlName="birthDate"
-        placeholder="Enter birth date"
+        placeholder="Enter date of birth"
         required
       />
     </div>

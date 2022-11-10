@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {InMemoryDbService} from 'angular-in-memory-web-api';
-import {User} from '../models/user/user-config';
-import {Car} from "../models/car/car-config";
+import {User} from '../models/user-config';
+import {Car} from "../models/car-config";
 import {formatDate} from "@angular/common";
-import {Booking} from "../models/booking/booking-config";
+import {Booking} from "../models/booking-config";
 import * as moment from 'moment';
+
 
 
 
@@ -18,7 +19,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         firstName: 'Mario',
         lastName: 'Bros',
-        birthDate: moment(new Date('10/01/1970')).format('DD/MM/YYYY'),
+        birthDate: moment.utc('01/01/1970','L').toDate(), // TODO remove time
         username: 'supermario',
         password: 'ciaociao'
       },
@@ -26,7 +27,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 2,
         firstName: 'Luigi',
         lastName: 'Bros',
-        birthDate: new Date('08/05/1980'),
+        birthDate: moment.utc('08/08/1985','L').toDate(),
         username: 'superluigi',
         password: 'notaciao'
       },
@@ -34,7 +35,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 3,
         firstName: 'Sandro',
         lastName: 'Tonali',
-        birthDate: new Date('08/10/2000'),
+        birthDate: moment.utc('08/05/2000','L').toDate(),
         username: 'sandrino',
         password: 'sonoforte'
       }
@@ -48,16 +49,16 @@ export class InMemoryDataService implements InMemoryDbService {
     const bookings: Booking[] = [
       {
         id: 1,
-        startDate: new Date(),
-        endDate: new Date(formatDate('01/01/1970', 'dd/MM/yyyy', 'en-US')),
+        startDate: moment.utc('11/08/2022','L').toDate(),
+        endDate: moment.utc('11/25/2022','L').toDate(),
         username: 'superluigi',
         licensePlate: 'EW060YE',
         approved: true
       },
       {
         id: 2,
-        startDate: new Date(),
-        endDate: new Date(formatDate('01/01/1970', 'dd/MM/yyyy', 'en-US')),
+        startDate: moment.utc('12/08/2022','L').toDate(),
+        endDate: moment.utc('12/15/2022','L').toDate(),
         username: 'sandrino',
         licensePlate: 'GA000AA',
         approved: false

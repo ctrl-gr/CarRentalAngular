@@ -1,62 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {User} from "../models/user/user-config";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const API_URL = 'http://localhost:4200/api/test/'; //TODO ok?
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-  private usersUrl = 'api/users';
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  constructor(private http: HttpClient) { }
-
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl)
-      .pipe(
-        catchError(this.handleError<User[]>('getUsers', []))
-      );
+  getPublicContent(): Observable<any> {
+    return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
 
-
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.get<User>(url).pipe(
-      catchError(this.handleError<User>(`getUser id=${id}`))
-    );
+  getUserBoard(): Observable<any> {
+    return this.http.get(API_URL + 'user', { responseType: 'text' });
   }
 
-
-  addEditUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
-      catchError(this.handleError<User>('addUser'))
-    );
+  getModeratorBoard(): Observable<any> {
+    return this.http.get(API_URL + 'mod', { responseType: 'text' });
   }
 
-  deleteUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
-
-    return this.http.delete<User>(url, this.httpOptions).pipe(
-      catchError(this.handleError<User>('deleteUser'))
-    );
+  getAdminBoard(): Observable<any> {
+    return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
-
-
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      console.error(error);
-
-      return of(result as T);
-    }
-  }
-
 }
-
