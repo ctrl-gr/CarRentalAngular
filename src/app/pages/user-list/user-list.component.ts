@@ -96,7 +96,7 @@ export class UserListComponent implements OnInit {
     }
 
     this.data = [{
-      //users: this.getUsers()
+      users: this.getUsers()
     }
     ]
 
@@ -111,11 +111,11 @@ export class UserListComponent implements OnInit {
 
     switch (action) {
       case 'edit': {
-        console.log('edit')
+        this.userService.editUser(user)
         break;
       }
       case 'delete': {
-        console.log('delete')
+        this.userService.deleteUser(user)
         break;
       }
       case 'new-row': {
@@ -126,5 +126,9 @@ export class UserListComponent implements OnInit {
   }
 
 
-
+  getUsers() {
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
+    });
+  }
 }

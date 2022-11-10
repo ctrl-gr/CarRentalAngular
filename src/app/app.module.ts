@@ -25,6 +25,7 @@ import { AddCarComponent } from './pages/add-car/add-car.component';
 import { AddBookingComponent } from './pages/add-booking/add-booking.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor} from "./auth/auth-interceptor";
+import { SetBookingComponent } from './pages/set-booking/set-booking.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { AuthInterceptor} from "./auth/auth-interceptor";
     AddCarComponent,
     AddBookingComponent,
     LoginComponent,
+    SetBookingComponent,
 
   ],
   imports: [

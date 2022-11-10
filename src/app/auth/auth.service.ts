@@ -32,7 +32,7 @@ export class AuthService {
       .post<any>(`${this.endpoint}/signin`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res._id).subscribe((res) => {
+        this.getUser(res._id).subscribe((res) => {
           this.currentUser = res;
           this.router.navigate(['user-profile/' + res.msg._id]);
         });
@@ -55,8 +55,8 @@ export class AuthService {
     }
   }
 
-  getUserProfile(id: any): Observable<any> {
-    let api = `${this.endpoint}/user-profile/${id}`;
+  getUser(id: any): Observable<any> {
+    let api = `${this.endpoint}/user/${id}`;
     return this.http.get(api, {headers: this.headers}).pipe(
       map((res) => {
         return res || {};

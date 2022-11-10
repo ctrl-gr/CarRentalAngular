@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, of} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {User} from "../models/user-config";
+import {Car} from "../models/car-config";
+
 
 const API_URL = 'http://localhost:4200/api/test/'; //TODO ok?
 
@@ -8,21 +12,46 @@ const API_URL = 'http://localhost:4200/api/test/'; //TODO ok?
   providedIn: 'root',
 })
 export class UserService {
+
+  private usersUrl = 'api/users';
+
   constructor(private http: HttpClient) {}
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl)
+      .pipe(
+        catchError(this.handleError<User[]>('getUsers', []))
+      );
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  getUser(id: number): Observable<User> {
+    const url = `${this.usersUrl}/${id}`;
+    return this.http.get<User>(url).pipe(
+      catchError(this.handleError<User>(`getUser id=${id}`))
+    );
   }
 
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { responseType: 'text' });
+  editUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersUrl, user).pipe( //TODO httpOptions?
+      catchError(this.handleError<User>('addUser'))
+    );
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+
+  deleteUser(id: number): Observable<User> {
+    const url = `${this.usersUrl}/${id}`;
+    return this.http.delete<User>(url).pipe(
+      catchError(this.handleError<User>('deleteUser'))
+    );
   }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      console.error(error);
+
+      return of(result as T);
+    }
+  }
+
 }

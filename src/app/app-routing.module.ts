@@ -15,9 +15,10 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'users', component: UserListComponent },
   { path: 'cars', component: CarListComponent},
+  { path: 'availablecars', component: CarListComponent},
   { path: 'add', component: AddUserComponent},
   {path: 'newcar', component: AddCarComponent},
-  {path: 'newbooking', component: AddBookingComponent, canActivate: [AuthGuard]}, //example for authguard
+  {path: 'newbooking', component: AddBookingComponent, canActivate: [AuthGuard]}, //just an example for authguard
   {path: 'bookings', component: BookingListComponent},
   { path: 'login', component: LoginComponent},
 ];
