@@ -29,6 +29,7 @@ export enum MyTableActionEnum {
   EDIT = 'edit',
   DELETE = 'delete',
   APPROVE = 'approve',
+  BOOK = 'book',
   NEW_ROW = 'new-row'
 }
 

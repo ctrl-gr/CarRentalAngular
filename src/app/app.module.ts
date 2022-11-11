@@ -22,7 +22,6 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { CarListComponent } from './pages/car-list/car-list.component';
 import { BookingListComponent } from './pages/booking-list/booking-list.component';
 import { AddCarComponent } from './pages/add-car/add-car.component';
-import { AddBookingComponent } from './pages/add-booking/add-booking.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor} from "./auth/auth-interceptor";
 import { SetBookingComponent } from './pages/set-booking/set-booking.component';
@@ -43,7 +42,6 @@ import { SetBookingComponent } from './pages/set-booking/set-booking.component';
     CarListComponent,
     BookingListComponent,
     AddCarComponent,
-    AddBookingComponent,
     LoginComponent,
     SetBookingComponent,
 

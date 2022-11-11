@@ -103,6 +103,8 @@ export class UserListComponent implements OnInit {
 
   }
 
+  // TODO format date correctly
+
   actionToPerform(myObject: any) {
 
     console.log(myObject)

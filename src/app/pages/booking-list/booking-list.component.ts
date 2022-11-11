@@ -17,6 +17,7 @@ export class BookingListComponent implements OnInit {
   actions !: MyAction[];
   bookings: Booking[] = [];
   data!: any[];
+  isAdmin !: boolean; //get role from token
 
 
   constructor(
@@ -39,30 +40,42 @@ export class BookingListComponent implements OnInit {
     this.search = {
       columns: this.data
     }
+    if (this.isAdmin) {
+      this.actions = [
+        {
+          text: 'approva',
+          cssClass: 'btn btn-warning',
+          actionType: MyTableActionEnum.APPROVE,
+          icon: 'offline_pin',
+          onTop: false
+        },
+        {
+          text: 'elimina',
+          cssClass: 'btn btn-danger',
+          actionType: MyTableActionEnum.DELETE,
+          icon: 'remove',
+          onTop: false
+        },
+        {
+          text: 'nuova prenotazione',
+          cssClass: 'btn btn-primary',
+          actionType: MyTableActionEnum.NEW_ROW,
+          icon: 'add',
+          onTop: true
+        }
+      ]
+    } else {
+      this.actions = [
 
-    this.actions = [
-      {
-        text: 'approva',
-        cssClass: 'btn btn-warning',
-        actionType: MyTableActionEnum.APPROVE,
-        icon: 'offline_pin',
-        onTop: false
-      },
-      {
-        text: 'elimina',
-        cssClass: 'btn btn-danger',
-        actionType: MyTableActionEnum.DELETE,
-        icon: 'remove',
-        onTop: false
-      },
-      {
-        text: 'nuova prenotazione',
-        cssClass: 'btn btn-primary',
-        actionType: MyTableActionEnum.NEW_ROW,
-        icon: 'add',
-        onTop: true
-      }
+        {
+          text: 'elimina',
+          cssClass: 'btn btn-danger',
+          actionType: MyTableActionEnum.DELETE,
+          icon: 'remove',
+          onTop: false
+        }
     ]
+    }
 
     this.tableConfig = {
       headers: [

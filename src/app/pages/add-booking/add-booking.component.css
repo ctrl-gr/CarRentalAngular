@@ -1,8 +1,0 @@
-form {
-  display: inline-flex;
-  flex-direction: column;
-}
-
-input.ng-touched.ng-invalid{
-  background-color: red !important;
-}

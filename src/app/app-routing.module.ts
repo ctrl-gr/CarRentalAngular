@@ -6,19 +6,18 @@ import { HomepageComponent} from "./pages/homepage/homepage.component";
 import {CarListComponent} from "./pages/car-list/car-list.component";
 import {AddCarComponent} from "./pages/add-car/add-car.component";
 import {BookingListComponent} from "./pages/booking-list/booking-list.component";
-import {AddBookingComponent} from "./pages/add-booking/add-booking.component";
 import {LoginComponent} from "./pages/login/login.component";
-import { AuthGuard } from './auth/auth.guard';
+import {SetBookingComponent} from "./pages/set-booking/set-booking.component";
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full'},
   { path: 'homepage', component: HomepageComponent},
   { path: 'users', component: UserListComponent },
   { path: 'cars', component: CarListComponent},
-  { path: 'availablecars', component: CarListComponent},
   { path: 'add', component: AddUserComponent},
   {path: 'newcar', component: AddCarComponent},
-  {path: 'newbooking', component: AddBookingComponent, canActivate: [AuthGuard]}, //just an example for authguard
+  {path: 'newbooking', component: SetBookingComponent}, //just an example for authguard canActivate: [AuthGuard]
   {path: 'bookings', component: BookingListComponent},
   { path: 'login', component: LoginComponent},
 ];
