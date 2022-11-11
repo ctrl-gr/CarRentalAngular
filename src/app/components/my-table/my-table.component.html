@@ -1,4 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="search-box">
 <select id="selectLabels" [(ngModel)]="selected">
   <ng-container *ngFor="let header of tableConfig.headers">
     <option value="{{header.key}}">
@@ -7,6 +8,7 @@
   </ng-container>
 </select>
 <input class="searchTerm" type="text" name="searchTerm" placeholder="Enter text to search" [(ngModel)]="searchTerm"/>
+</div>
 <br/> <br/>
 <ng-container *ngFor="let action of tableConfig.actions">
   <div *ngIf="action.onTop">
@@ -38,7 +40,7 @@
     <td>
       <ng-container *ngFor="let action of tableConfig.actions">
         <div *ngIf="!action.onTop">
-          <app-my-button [buttonConfig]="{text: action.text, customCssClass: action.cssClass, icon: action.icon}"
+          <app-my-button class="my-button" [buttonConfig]="{text: action.text, customCssClass: action.cssClass, icon: action.icon}"
                          (click)="actionToOutput(action.actionType, dataRow)"></app-my-button>
         </div>
       </ng-container>

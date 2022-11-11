@@ -26,8 +26,8 @@ export class AddCarComponent implements OnInit {
     })
   }
 
-  addEditCar(carform: FormGroup) {
-    //id?
+  saveCar() {
+
     this.carService.addEditCar({
       id: 1,
       licensePlate: this.carform.value.licensePlate,
@@ -39,9 +39,8 @@ export class AddCarComponent implements OnInit {
     })
   }
 
-  onSubmit(form: FormGroup) {
-    this.addEditCar(this.carform)
-    console.log(this.carform)
+  onSubmit() {
+    this.saveCar()
   }
 }
 

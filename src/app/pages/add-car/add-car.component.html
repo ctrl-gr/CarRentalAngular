@@ -1,4 +1,4 @@
-<form [formGroup]="carform" (click)="onSubmit(carform)">
+<form [formGroup]="carform" (click)="onSubmit()">
   <label for="licensePlate"> License plate:
     <input type="text" id="licensePlate" name="licensePlate" formControlName="licensePlate" />
   </label>
@@ -17,5 +17,6 @@
   <label for="seats"> Seats:
     <input type="number" id="seats" name="seats" formControlName="seats" />
   </label>
-  <input type="submit" [disabled]="!carform.valid" value="invia">
+  <br>
+  <input type="submit" [disabled]="!carform.valid" value="Aggiungi">
 </form>

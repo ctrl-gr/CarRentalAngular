@@ -3,6 +3,7 @@ import {User} from "../../models/user-config";
 import {UserService} from "../../services/user.service";
 import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
 import { Router } from '@angular/router';
+import * as moment from "moment";
 
 
 @Component({
@@ -28,6 +29,8 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.getUsers()
 
     this.pagination = {
       itemPerPage: 5,
@@ -77,7 +80,7 @@ export class UserListComponent implements OnInit {
           label: 'cognome',
         },
         {
-          key: 'birthDate',
+          key: 'birthDateFormat',
           label: 'data di nascita',
         },
         {
@@ -87,6 +90,10 @@ export class UserListComponent implements OnInit {
         {
           key: 'password',
           label: 'password',
+        },
+        {
+          key: 'actions',
+          label: 'azioni'
         }
       ],
       order: this.order,
@@ -95,19 +102,12 @@ export class UserListComponent implements OnInit {
       actions: this.actions
     }
 
-    this.data = [{
-      users: this.getUsers()
-    }
-    ]
-
 
   }
 
-  // TODO format date correctly
 
   actionToPerform(myObject: any) {
 
-    console.log(myObject)
     let action = myObject.action
     let user = myObject.row
 
@@ -130,6 +130,9 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe(data => {
+      data.forEach(user => {
+        user.birthDateFormat = moment(user.birthDate).format('DD-MM-YYYY')
+      })
       this.users = data;
     });
   }

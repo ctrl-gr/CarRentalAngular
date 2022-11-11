@@ -28,4 +28,8 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.authService.signIn(this.signinForm.value);
   }
+
+  signUp() {
+    this.router.navigate(['newuser'])
+  }
 }

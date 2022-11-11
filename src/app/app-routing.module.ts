@@ -11,11 +11,11 @@ import {SetBookingComponent} from "./pages/set-booking/set-booking.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/homepage', pathMatch: 'full'},
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'homepage', component: HomepageComponent},
   { path: 'users', component: UserListComponent },
   { path: 'cars', component: CarListComponent},
-  { path: 'add', component: AddUserComponent},
+  { path: 'newuser', component: AddUserComponent},
   {path: 'newcar', component: AddCarComponent},
   {path: 'newbooking', component: SetBookingComponent}, //just an example for authguard canActivate: [AuthGuard]
   {path: 'bookings', component: BookingListComponent},

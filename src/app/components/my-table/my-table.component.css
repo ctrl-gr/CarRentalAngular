@@ -2,6 +2,25 @@ table{
   width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+}
+
+.search-box {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.searchTerm {
+  margin-left: 10px;
+}
+.my-button {
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 tr{

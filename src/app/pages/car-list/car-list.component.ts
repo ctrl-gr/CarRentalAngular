@@ -22,10 +22,11 @@ export class CarListComponent implements OnInit {
 
   constructor(private carService: CarService,
               private router: Router) {
-    console.log(this.router.getCurrentNavigation()?.extras.state) // ? because it's possibly null
   }
 
   ngOnInit() {
+
+    this.getCars()
 
     this.pagination = {
       itemPerPage: 5,
@@ -89,6 +90,10 @@ export class CarListComponent implements OnInit {
         {
           key: 'seats',
           label: 'posti',
+        },
+        {
+          key: 'actions',
+          label: 'azioni'
         }
       ],
       order: this.order,
@@ -97,16 +102,11 @@ export class CarListComponent implements OnInit {
       actions: this.actions
     }
 
-    this.data = [{
-      cars: this.getCars()
-    }
-    ]
 
   }
 
   actionToPerform(myObject: any) {
 
-    console.log(myObject)
     let action = myObject.action
     let car = myObject.row
 

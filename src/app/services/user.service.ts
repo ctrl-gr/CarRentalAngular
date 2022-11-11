@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {User} from "../models/user-config";
-import {Car} from "../models/car-config";
+
 
 
 const API_URL = 'http://localhost:4200/api/test/'; //TODO ok?

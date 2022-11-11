@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
+import {Component, OnInit} from '@angular/core';
+import {
+  MyAction,
+  MyOrder,
+  MyPagination,
+  MySearch,
+  MyTableActionEnum,
+  MyTableConfig
+} from "../../components/my-table/my-table-config";
 import {Booking} from "../../models/booking-config";
 import {BookingService} from "../../services/booking.service";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+import * as moment from "moment/moment";
+
 @Component({
   selector: 'app-booking-list',
   templateUrl: './booking-list.component.html',
@@ -17,7 +26,7 @@ export class BookingListComponent implements OnInit {
   actions !: MyAction[];
   bookings: Booking[] = [];
   data!: any[];
-  isAdmin !: boolean; //get role from token
+  isAdmin !: boolean;
 
 
   constructor(
@@ -27,6 +36,8 @@ export class BookingListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isAdmin = true
+    this.getBookings()
 
     this.pagination = {
       itemPerPage: 5,
@@ -80,11 +91,11 @@ export class BookingListComponent implements OnInit {
     this.tableConfig = {
       headers: [
         {
-          key: 'startDate',
+          key: 'startDateFormat',
           label: 'data inizio',
         },
         {
-          key: 'endDate',
+          key: 'endDateFormat',
           label: 'data fine',
         },
         {
@@ -98,6 +109,10 @@ export class BookingListComponent implements OnInit {
         {
           key: 'approved',
           label: 'approvato',
+        },
+        {
+          key: 'actions',
+          label: 'azioni'
         }
       ],
       order: this.order,
@@ -106,16 +121,11 @@ export class BookingListComponent implements OnInit {
       actions: this.actions
     }
 
-    this.data = [{
-      bookings: this.getBookings()
-    }
-    ]
 
   }
 
   actionToPerform(myObject: any) {
 
-    console.log(myObject)
     let action = myObject.action
     let booking = myObject.row
 
@@ -137,6 +147,10 @@ export class BookingListComponent implements OnInit {
 
   getBookings() {
     this.bookingService.getBookings().subscribe(data => {
+      data.forEach(booking => {
+        booking.startDateFormat = moment(booking.startDate).format('DD-MM-YYYY'),
+          booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
+      })
       this.bookings = data;
     });
   }
