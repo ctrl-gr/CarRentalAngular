@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'cars', component: CarListComponent},
   { path: 'newuser', component: AddUserComponent},
   {path: 'newcar', component: AddCarComponent},
-  {path: 'newbooking', component: SetBookingComponent}, //just an example for authguard canActivate: [AuthGuard]
+  {path: 'newbooking', component: SetBookingComponent},
   {path: 'bookings', component: BookingListComponent},
   { path: 'login', component: LoginComponent},
 ];
