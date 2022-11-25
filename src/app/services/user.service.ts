@@ -6,34 +6,33 @@ import {User} from "../models/user-config";
 
 
 
-const API_URL = 'http://localhost:4200/api/test/'; //TODO ok?
-
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-  private usersUrl = 'api/users';
+  private usersUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl)
+    const url = `${this.usersUrl}/all`;
+    return this.http.get<User[]>(url)
       .pipe(
-        catchError(this.handleError<User[]>('getUsers', []))
+        catchError(this.handleError<User[]>('all', []))
       );
   }
 
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
+  getUserByUsername(username : String): Observable<User> {
+    const url = `${this.usersUrl}/get-user-by-username/${username}`;
     return this.http.get<User>(url).pipe(
-      catchError(this.handleError<User>(`getUser id=${id}`))
+      catchError(this.handleError<User>(`get-user-by-username/${username}`))
     );
   }
 
   editUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user).pipe( //TODO httpOptions?
-      catchError(this.handleError<User>('addUser'))
+    return this.http.post<User>(this.usersUrl, user).pipe(
+      catchError(this.handleError<User>('save'))
     );
   }
 
@@ -41,7 +40,7 @@ export class UserService {
   deleteUser(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.delete<User>(url).pipe(
-      catchError(this.handleError<User>('deleteUser'))
+      catchError(this.handleError<User>('delete/${userId}'))
     );
   }
 
@@ -49,7 +48,6 @@ export class UserService {
     return (error: any): Observable<T> => {
 
       console.error(error);
-
       return of(result as T);
     }
   }

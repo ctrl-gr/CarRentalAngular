@@ -9,8 +9,9 @@ import {
 } from "../../components/my-table/my-table-config";
 import {Booking} from "../../models/booking-config";
 import {BookingService} from "../../services/booking.service";
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from "moment/moment";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-booking-list',
@@ -31,13 +32,22 @@ export class BookingListComponent implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit() {
-    this.isAdmin = true
-    this.getBookings()
+    this.isAdmin = this.authService.checkIsAdmin()
+
+    if (!this.isAdmin) {
+
+      this.getMyBookings()
+
+    } else {
+      this.getBookings()
+
+    }
 
     this.pagination = {
       itemPerPage: 5,
@@ -85,7 +95,7 @@ export class BookingListComponent implements OnInit {
           icon: 'remove',
           onTop: false
         }
-    ]
+      ]
     }
 
     this.tableConfig = {
@@ -131,7 +141,7 @@ export class BookingListComponent implements OnInit {
 
     switch (action) {
       case 'approve': {
-        this.bookingService.addApproveBooking(booking)
+        this.bookingService.approveBooking(booking)
         break;
       }
       case 'delete': {
@@ -139,7 +149,7 @@ export class BookingListComponent implements OnInit {
         break;
       }
       case 'new-row': {
-        this.router.navigate(['newbooking'])//TODO
+        this.router.navigate(['newbooking'])
         break;
       }
     }
@@ -155,5 +165,17 @@ export class BookingListComponent implements OnInit {
     });
   }
 
+  getMyBookings() {
+    const user = JSON.parse(localStorage.getItem('user') !)
+    let username = user.username
+    this.bookingService.getMyBookings(username).subscribe(data => {
+      data.forEach(booking => {
+        booking.startDateFormat = moment(booking.startDate).format('DD-MM-YYYY'),
+          booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
+      })
+      this.bookings = data;
+    });
+  }
 }
+
 

@@ -9,7 +9,7 @@ import {Car} from "../models/car-config";
 })
 export class CarService {
 
-  private carsUrl = 'api/cars';
+  private carsUrl = 'http://localhost:8080/api/cars';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,24 +18,32 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   getCars(): Observable<Car[]> {
-    return this.http.get<Car[]>(this.carsUrl)
+    const url = `${this.carsUrl}/all`;
+    return this.http.get<Car[]>(url)
       .pipe(
-        catchError(this.handleError<Car[]>('getCars', []))
+        catchError(this.handleError<Car[]>('all', []))
+      );
+  }
+
+  getAvailableCars(startDate: Date , endDate: Date): Observable<Car[]> {
+    const url = `${this.carsUrl}/get-available-cars/${startDate}&${endDate}`;
+    return this.http.get<Car[]>(url)
+      .pipe(
+        catchError(this.handleError<Car[]>('get-available-cars', []))
       );
   }
 
 
-  getCar(id: number): Observable<Car> {
-    const url = `${this.carsUrl}/${id}`;
-    return this.http.get<Car>(url).pipe(
-      catchError(this.handleError<Car>(`getCar id=${id}`))
+  addEditCar(car: Car): Observable<Car> {
+    const url = `${this.carsUrl}/save`;
+    return this.http.post<Car>(url, car, this.httpOptions).pipe(
+      catchError(this.handleError<Car>('save'))
     );
   }
 
-
-  addEditCar(car: Car): Observable<Car> {
+  editCar(car: Car): Observable<Car> {
     return this.http.post<Car>(this.carsUrl, car, this.httpOptions).pipe(
-      catchError(this.handleError<Car>('addCar'))
+      catchError(this.handleError<Car>('edit/${carId}'))
     );
   }
 
@@ -43,7 +51,7 @@ export class CarService {
     const url = `${this.carsUrl}/${id}`;
 
     return this.http.delete<Car>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Car>('deleteCar'))
+      catchError(this.handleError<Car>('delete'))
     );
   }
 

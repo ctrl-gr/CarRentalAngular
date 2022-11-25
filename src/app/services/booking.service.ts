@@ -10,7 +10,7 @@ import {Booking} from "../models/booking-config";
 })
 export class BookingService {
 
-  private bookingsUrl = 'api/bookings';
+  private bookingsUrl = 'http://localhost:8080/api/bookings';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,31 +19,38 @@ export class BookingService {
   constructor(private http: HttpClient) { }
 
   getBookings(): Observable<Booking[]> {
-    return this.http.get<Booking[]>(this.bookingsUrl)
+    const url = `${this.bookingsUrl}/all`;
+    return this.http.get<Booking[]>(url)
       .pipe(
-        catchError(this.handleError<Booking[]>('getBookings', []))
+        catchError(this.handleError<Booking[]>('all', []))
       );
   }
 
 
-  getBooking(id: number): Observable<Booking> {
-    const url = `${this.bookingsUrl}/${id}`;
-    return this.http.get<Booking>(url).pipe(
-      catchError(this.handleError<Booking>(`getBooking id=${id}`))
+  getMyBookings(username : string): Observable<Booking[]> {
+    const url = `${this.bookingsUrl}/my-bookings/${username}`;
+    return this.http.get<Booking[]>(url).pipe(
+      catchError(this.handleError<Booking[]>(`my-bookings&id=${username}`))
     );
   }
 
 
-  addApproveBooking(booking: Booking): Observable<Booking> {
+  addBooking(booking: Booking): Observable<Booking> {
     return this.http.post<Booking>(this.bookingsUrl, booking, this.httpOptions).pipe(
-      catchError(this.handleError<Booking>('addBooking'))
+      catchError(this.handleError<Booking>('save'))
+    );
+  }
+
+  approveBooking(booking: Booking): Observable<Booking> {
+    return this.http.post<Booking>(this.bookingsUrl, booking, this.httpOptions).pipe(
+      catchError(this.handleError<Booking>('approve/${bookingId}'))
     );
   }
 
   deleteBooking(id: number): Observable<Booking> {
     const url = `${this.bookingsUrl}/${id}`;
     return this.http.delete<Booking>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Booking>('deleteBooking'))
+      catchError(this.handleError<Booking>('delete'))
     );
   }
 

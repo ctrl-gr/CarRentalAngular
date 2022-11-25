@@ -8,17 +8,19 @@ import {AddCarComponent} from "./pages/add-car/add-car.component";
 import {BookingListComponent} from "./pages/booking-list/booking-list.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {SetBookingComponent} from "./pages/set-booking/set-booking.component";
+import {AuthGuardService} from "./auth/auth.guard.service";
+import {RoleGuardService} from "./auth/role.guard.service";
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'homepage', component: HomepageComponent},
-  { path: 'users', component: UserListComponent },
-  { path: 'cars', component: CarListComponent},
+  { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuardService]},
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuardService, RoleGuardService] },
+  { path: 'cars', component: CarListComponent, canActivate: [AuthGuardService, RoleGuardService]},
   { path: 'newuser', component: AddUserComponent},
-  {path: 'newcar', component: AddCarComponent},
-  {path: 'newbooking', component: SetBookingComponent},
-  {path: 'bookings', component: BookingListComponent},
+  {path: 'newcar', component: AddCarComponent, canActivate: [AuthGuardService, RoleGuardService]},
+  {path: 'newbooking', component: SetBookingComponent, canActivate: [AuthGuardService]},
+  {path: 'bookings', component: BookingListComponent, canActivate: [AuthGuardService]},
   { path: 'login', component: LoginComponent},
 ];
 

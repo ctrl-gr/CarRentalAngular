@@ -3,50 +3,56 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/homepage">Homepage</a>
+        <a class="nav-link" routerLink="homepage">Homepage</a>
       </li>
-      <div *ngIf="isAdmin">
+      <ng-container *ngIf="isAdmin">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           User management area
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/newuser">Insert
+          <a class="dropdown-item" routerLink="newuser">Insert
             new user</a>
-          <a class="dropdown-item" href="/users">Show
+          <a class="dropdown-item" routerLink="users">Show
             all the users</a>
         </div>
       </li>
-        </div>
+      </ng-container>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           Booking management area
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-          <a class="dropdown-item" href="/newbooking">Insert new booking</a>
-          <a class="dropdown-item" href="/bookings">Show
+          <a class="dropdown-item" routerLink="newbooking">Insert new booking</a>
+          <ng-container *ngIf="isAdmin; else templateUser">
+          <a class="dropdown-item" routerLink="bookings">Show
             all the bookings</a>
+          </ng-container>
+          <ng-template #templateUser>
+            <a class="dropdown-item" routerLink="bookings">Show my bookings</a>
+          </ng-template>
         </div>
       </li>
-      <div *ngIf="isAdmin">
+      <ng-container *ngIf="isAdmin">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           Car management area
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/newcar">Insert
+          <a class="dropdown-item" routerLink="newcar">Insert
             new car</a>
-          <a class="dropdown-item" href="/cars">Show
+          <a class="dropdown-item" routerLink="cars">Show
             all the cars</a>
         </div>
       </li>
-      </div>
+      </ng-container>
       <li class="nav-item active">
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
+

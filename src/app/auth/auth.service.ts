@@ -1,71 +1,88 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from "../models/user-config";
-import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse,
+  HttpErrorResponse, HttpBackend,
 } from '@angular/common/http';
+import {environment} from "../../environments/environment";
+import {UserService} from "../services/user.service";
+
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  endpoint: string = 'http://localhost:4000/api';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
 
-  constructor(private http: HttpClient, public router: Router) {
+
+  constructor(private http: HttpClient, private handler: HttpBackend, public router: Router, private userService: UserService) {
+    this.http = new HttpClient(handler);
   }
+
+  server: string = environment.server;
+  port: string = environment.port;
+  endpoint: string = 'http://localhost:8080/api';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
   signUp(user: User): Observable<any> {
-    let api = `${this.endpoint}/newuser`;
+    let api = `${this.endpoint}/register`;
     return this.http.post(api, user).pipe(catchError(this.handleError));
   }
 
 
   signIn(user: User) {
     return this.http
-      .post<any>(`${this.endpoint}/login`, user)
+      .post<any>(`${this.endpoint}/authenticate`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        this.getUser(res._id).subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['bookings/' + res.msg._id]);
-        });
+        localStorage.setItem('access_token', res.jwttoken);
+        // this.currentUserSubject.next(user)
+        this.userService.getUserByUsername(user.username).subscribe((user: any) => {
+          console.log(user)
+          localStorage.setItem('user', JSON.stringify(user))
+          console.log('is admin?', this.checkIsAdmin())
+          console.log('is logged in?', this.isLoggedIn)
+          this.router.navigate(['homepage'], {queryParams: {isLogged: true}})
+        })
       });
+
   }
+
 
   getToken() {
     return localStorage.getItem('access_token');
   }
 
+
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    return authToken !== null ? true : false;
+    let authToken = this.getToken();
+    return authToken !== null;
   }
 
-  doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
-    if (removeToken == null) {
-      this.router.navigate(['login']);
+
+  checkIsAdmin(): boolean {
+    let authToken = this.getToken()
+    if (authToken == null) {
+      return false
+    } else {
+      const decoded: any = jwtDecode(authToken)
+      return decoded.roles != null && decoded.roles.toLowerCase() === 'role_admin';
     }
   }
 
-  getUser(id: any): Observable<any> {
-    let api = `${this.endpoint}/user/${id}`;
-    return this.http.get(api, {headers: this.headers}).pipe(
-      map((res) => {
-        return res || {};
-      }),
-      catchError(this.handleError)
-    );
+
+  doLogout() {
+    let removeToken = localStorage.removeItem('access_token');
+    // this.isLoginSubject.next(false)
+    if (removeToken == null) {
+      this.router.navigate(['login'], {queryParams: {isLogged: false}});
+    }
   }
 
-  // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
@@ -77,4 +94,6 @@ export class AuthService {
     }
     return throwError(msg);
   }
+
+
 }

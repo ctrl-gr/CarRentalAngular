@@ -10,6 +10,8 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   signinForm: FormGroup;
+  isLoggedIn : boolean;
+  isAdmin : boolean;
 
   constructor(
     public fb: FormBuilder,
@@ -20,13 +22,18 @@ export class LoginComponent implements OnInit {
       username: [''],
       password: [''],
     });
+    this.isLoggedIn = this.authService.isLoggedIn
+    this.isAdmin = this.authService.checkIsAdmin()
   }
 
   ngOnInit() {
+
   }
 
   loginUser() {
     this.authService.signIn(this.signinForm.value);
+    this.isLoggedIn = this.authService.isLoggedIn
+    this.isAdmin = this.authService.checkIsAdmin()
   }
 
   signUp() {
