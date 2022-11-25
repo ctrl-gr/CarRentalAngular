@@ -47,6 +47,7 @@ import {RoleGuardService} from "./auth/role.guard.service";
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     NoopAnimationsModule,
     MatIconModule,

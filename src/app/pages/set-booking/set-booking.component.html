@@ -1,0 +1,20 @@
+<router-outlet></router-outlet>
+<form class="bookingform" [formGroup]="bookingform" (ngSubmit)="getAvailableCars(startDate, endDate)">
+  <h3> Make a reservation! </h3>
+  <div class="input">
+  <label for="startDate"> Start Date:
+    <input type="date" id="startDate" name="startDate" class="input" formControlName="startDate" />
+  </label>
+    <br>
+  <label for="endDate"> End date:
+    <input type="date" id="endDate" name="endDate" class="input" formControlName="endDate" />
+  </label>
+    <br>
+  <small *ngIf="bookingform.hasError('notValid')">Not valid</small>
+  <input type="submit" [disabled]="!bookingform.valid" class="submit" value="Get available cars">
+  </div>
+</form>
+<ng-container *ngIf="cars.length > 0">
+<app-my-table [tableConfig]="tableConfig" [data]="cars" (inputActionToPerform)="saveBooking($event)"></app-my-table>
+<!-- input in data availableCars -->
+</ng-container>
