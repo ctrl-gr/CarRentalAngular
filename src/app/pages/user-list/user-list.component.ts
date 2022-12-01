@@ -1,8 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user-config";
 import {UserService} from "../../services/user.service";
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
-import { Router } from '@angular/router';
+import {
+  MyAction,
+  MyOrder,
+  MyPagination,
+  MySearch,
+  MyTableActionEnum,
+  MyTableConfig
+} from "../../components/my-table/my-table-config";
+import {Router} from '@angular/router';
 import * as moment from "moment";
 
 
@@ -102,7 +109,6 @@ export class UserListComponent implements OnInit {
       actions: this.actions
     }
 
-
   }
 
 
@@ -113,11 +119,11 @@ export class UserListComponent implements OnInit {
 
     switch (action) {
       case 'edit': {
-        this.userService.editUser(user)
+        this.editUser(user.username)
         break;
       }
       case 'delete': {
-        this.userService.deleteUser(user)
+        this.deleteUser(user.username)
         break;
       }
       case 'new-row': {
@@ -136,4 +142,15 @@ export class UserListComponent implements OnInit {
       this.users = data;
     });
   }
-}
+
+  deleteUser(username: string) {
+    this.userService.deleteUser(username).subscribe(() => {
+      this.getUsers()
+    })
+  }
+
+  editUser(username : string) {
+    this.router.navigate(['newuser'], {queryParams: {usertoedit: username}})
+    }
+  }
+

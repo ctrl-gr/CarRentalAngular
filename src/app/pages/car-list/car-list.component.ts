@@ -3,6 +3,7 @@ import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableCon
 import {Car} from "../../models/car-config";
 import {CarService} from "../../services/car.service";
 import {Router} from '@angular/router';
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-car-list',
@@ -20,13 +21,15 @@ export class CarListComponent implements OnInit {
   data!: any[];
 
 
+
   constructor(private carService: CarService,
               private router: Router) {
   }
 
   ngOnInit() {
 
-    this.getCars()
+      this.getCars()
+
 
     this.pagination = {
       itemPerPage: 5,
@@ -112,11 +115,11 @@ export class CarListComponent implements OnInit {
 
     switch (action) {
       case 'edit': {
-        this.carService.addEditCar(car)
+        this.editCar(car.licensePlate)
         break;
       }
       case 'delete': {
-        this.carService.deleteCar(car.id)
+        this.deleteCar(car.licensePlate)
         break;
       }
       case 'new-row': {
@@ -130,6 +133,17 @@ export class CarListComponent implements OnInit {
     this.carService.getCars().subscribe(data => {
       this.cars = data;
     });
+  }
+
+
+  editCar(licensePlate : string) {
+    this.router.navigate(['newcar'], {queryParams: {cartoedit: licensePlate}})
+  }
+
+  deleteCar(licensePlate : string) {
+    this.carService.deleteCar(licensePlate).subscribe(()=> {
+      this.getCars()
+    })
   }
 
 }

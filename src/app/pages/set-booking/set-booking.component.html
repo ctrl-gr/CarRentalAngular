@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<form class="bookingform" [formGroup]="bookingform" (ngSubmit)="getAvailableCars(startDate, endDate)">
+<form class="bookingform" [formGroup]="bookingform" (ngSubmit)="getAvailableCars()">
   <h3> Make a reservation! </h3>
   <div class="input">
   <label for="startDate"> Start Date:
@@ -16,5 +16,4 @@
 </form>
 <ng-container *ngIf="cars.length > 0">
 <app-my-table [tableConfig]="tableConfig" [data]="cars" (inputActionToPerform)="saveBooking($event)"></app-my-table>
-<!-- input in data availableCars -->
 </ng-container>

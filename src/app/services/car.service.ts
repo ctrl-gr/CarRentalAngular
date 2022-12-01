@@ -4,6 +4,8 @@ import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Car} from "../models/car-config";
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,32 +28,40 @@ export class CarService {
   }
 
   getAvailableCars(startDate: Date , endDate: Date): Observable<Car[]> {
-    const url = `${this.carsUrl}/get-available-cars/${startDate}&${endDate}`;
-    return this.http.get<Car[]>(url)
+    const url = `${this.carsUrl}/get-available-cars`;
+    return this.http.get<Car[]>(url, {params: {startDate: startDate.toString(), endDate : endDate.toString()}})
       .pipe(
         catchError(this.handleError<Car[]>('get-available-cars', []))
       );
   }
 
-
-  addEditCar(car: Car): Observable<Car> {
+  addCar(car: Car): Observable<Car> {
     const url = `${this.carsUrl}/save`;
+    console.log('trying to save this car', car)
     return this.http.post<Car>(url, car, this.httpOptions).pipe(
       catchError(this.handleError<Car>('save'))
     );
+
   }
 
-  editCar(car: Car): Observable<Car> {
-    return this.http.post<Car>(this.carsUrl, car, this.httpOptions).pipe(
-      catchError(this.handleError<Car>('edit/${carId}'))
+  editCar(car: Car, licensePlate : String): Observable<Car> {
+    const url = `${this.carsUrl}/edit/${licensePlate}`;
+    return this.http.put<Car>(url, car, this.httpOptions).pipe(
+      catchError(this.handleError<Car>('edit'))
     );
   }
 
-  deleteCar(id: number): Observable<Car> {
-    const url = `${this.carsUrl}/${id}`;
+  getCarByLicensePlate(licensePlate : String): Observable<Car> {
+    const url = `${this.carsUrl}/get-car-by-license-plate/${licensePlate}`;
+    return this.http.get<Car>(url, this.httpOptions).pipe(
+      catchError(this.handleError<Car>(`get-car-by-license-plate/${licensePlate}`))
+    );
+  }
 
+  deleteCar(licensePlate: string): Observable<Car> {
+    const url = `${this.carsUrl}/delete/${licensePlate}`;
     return this.http.delete<Car>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Car>('delete'))
+      catchError(this.handleError<Car>('delete/${carId}'))
     );
   }
 

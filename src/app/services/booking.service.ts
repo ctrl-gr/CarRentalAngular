@@ -35,23 +35,24 @@ export class BookingService {
   }
 
 
-  addBooking(booking: Booking): Observable<Booking> {
-    return this.http.post<Booking>(this.bookingsUrl, booking, this.httpOptions).pipe(
+  addBooking(licensePlate: string, userId : number, startDate : Date, endDate : Date): Observable<any> {
+    const url = `${this.bookingsUrl}/save`;
+    return this.http.post<Booking>(url, null,{params: {licensePlate: licensePlate, userId : userId, startDate: startDate.toString(), endDate : endDate.toString()}}).pipe(
       catchError(this.handleError<Booking>('save'))
     );
   }
 
-  approveBooking(booking: Booking): Observable<Booking> {
-    return this.http.post<Booking>(this.bookingsUrl, booking, this.httpOptions).pipe(
-      catchError(this.handleError<Booking>('approve/${bookingId}'))
+  approveBooking(booking : Booking): Observable<Booking> {
+    const url = `${this.bookingsUrl}/approve`;
+    console.log('ready to send this booking', booking)
+    return this.http.put<Booking>(url,booking, this.httpOptions).pipe(
+      catchError(this.handleError<Booking>('approve'))
     );
   }
 
-  deleteBooking(id: number): Observable<Booking> {
-    const url = `${this.bookingsUrl}/${id}`;
-    return this.http.delete<Booking>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Booking>('delete'))
-    );
+  deleteBooking(booking : Booking): Observable<any> {
+    const url = `${this.bookingsUrl}/delete`;
+    return this.http.post<Booking>(url, booking, this.httpOptions)
   }
 
 

@@ -12,6 +12,8 @@ import {BookingService} from "../../services/booking.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from "moment/moment";
 import {AuthService} from "../../auth/auth.service";
+import {UserService} from "../../services/user.service";
+import {CarService} from "../../services/car.service";
 
 @Component({
   selector: 'app-booking-list',
@@ -30,6 +32,7 @@ export class BookingListComponent implements OnInit {
   isAdmin !: boolean;
 
 
+
   constructor(
     private bookingService: BookingService,
     private router: Router,
@@ -41,7 +44,6 @@ export class BookingListComponent implements OnInit {
     this.isAdmin = this.authService.checkIsAdmin()
 
     if (!this.isAdmin) {
-
       this.getMyBookings()
 
     } else {
@@ -117,7 +119,7 @@ export class BookingListComponent implements OnInit {
           label: 'targa',
         },
         {
-          key: 'approved',
+          key: 'isApproved',
           label: 'approvato',
         },
         {
@@ -141,11 +143,13 @@ export class BookingListComponent implements OnInit {
 
     switch (action) {
       case 'approve': {
-        this.bookingService.approveBooking(booking)
+        console.log('trying to approve booking', booking)
+        this.approveBooking(booking)
         break;
       }
       case 'delete': {
-        this.bookingService.deleteBooking(booking.id)
+        console.log('delete booking',booking)
+        this.deleteBooking(booking)
         break;
       }
       case 'new-row': {
@@ -162,6 +166,7 @@ export class BookingListComponent implements OnInit {
           booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
       })
       this.bookings = data;
+      console.log('here are all the bookings', this.bookings)
     });
   }
 
@@ -169,12 +174,28 @@ export class BookingListComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user') !)
     let username = user.username
     this.bookingService.getMyBookings(username).subscribe(data => {
+      console.log(data)
       data.forEach(booking => {
         booking.startDateFormat = moment(booking.startDate).format('DD-MM-YYYY'),
           booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
       })
       this.bookings = data;
     });
+    console.log('here are my bookings',this.bookings)
+  }
+
+  deleteBooking(booking : Booking) {
+    this.bookingService.deleteBooking(booking).subscribe(()=> {
+      this.getBookings()
+    })
+  }
+
+  approveBooking(booking : Booking) {
+    console.log('booking to send to approve booking', booking)
+    this.bookingService
+      .approveBooking(booking)
+      .subscribe(() => booking)
+        this.getBookings()
   }
 }
 

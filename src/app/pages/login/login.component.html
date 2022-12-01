@@ -1,4 +1,5 @@
 <div class="auth-wrapper">
+  <ng-container *ngIf="registrationSuccess"> <h5 class="h5 mb-5 font-weight-normal text-center">Registration completed! Now login with your new credentials. </h5></ng-container>
   <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="loginUser()">
     <h3 class="h3 mb-3 font-weight-normal text-center">Please sign in</h3>
     <div class="form-group">

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {isString} from "lodash";
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,15 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   signinForm: FormGroup;
-  isLoggedIn : boolean;
-  isAdmin : boolean;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  registrationSuccess !: boolean
 
   constructor(
     public fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.signinForm = this.fb.group({
       username: [''],
@@ -27,16 +30,22 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && isString(params['registrationSuccess'])) {
+        this.registrationSuccess = Boolean(JSON.parse(params['registrationSuccess']))
+      }
+    })
   }
 
-  loginUser() {
-    this.authService.signIn(this.signinForm.value);
-    this.isLoggedIn = this.authService.isLoggedIn
-    this.isAdmin = this.authService.checkIsAdmin()
-  }
+    loginUser()
+    {
+      this.authService.signIn(this.signinForm.value);
+      this.isLoggedIn = this.authService.isLoggedIn
+      this.isAdmin = this.authService.checkIsAdmin()
+    }
 
-  signUp() {
-    this.router.navigate(['newuser'])
+    signUp()
+    {
+      this.router.navigate(['newuser'])
+    }
   }
-}

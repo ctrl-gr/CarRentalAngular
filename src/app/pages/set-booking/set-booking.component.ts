@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Booking} from "../../models/booking-config";
 import { FormControl, FormGroup, Validators} from "@angular/forms";
 import {BookingService} from "../../services/booking.service";
-
 import {
   MyAction,
   MyOrder,
@@ -13,6 +12,7 @@ import {
 } from "../../components/my-table/my-table-config";
 import {CarService} from "../../services/car.service";
 import {Car} from "../../models/car-config";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-set-booking',
@@ -32,9 +32,11 @@ export class SetBookingComponent implements OnInit {
   endDate !: Date;
   cars: Car[] = [];
 
+
   constructor(
     private bookingService: BookingService,
-    private carService: CarService
+    private carService: CarService,
+    public router : Router
   ) { }
 
   checkDates(bookingform: FormGroup) {
@@ -115,24 +117,21 @@ export class SetBookingComponent implements OnInit {
     this.endDate = this.bookingform.controls['endDate'].value
   }
 
-  getAvailableCars(startDate : Date, endDate : Date) {
-    this.carService.getAvailableCars(startDate, endDate).subscribe(data => {
-      this.cars = data;
-    });
+  getAvailableCars() {
+    this.startDate = this.bookingform.value['startDate']
+    this.endDate = this.bookingform.value['endDate']
+   this.carService.getAvailableCars(this.startDate, this.endDate).subscribe( data =>
+    this.cars = data
+   )
   }
 
 
-  saveBooking(myObject: any) {
-    if (myObject.action == MyTableActionEnum.BOOK) {
-      this.bookingService.addBooking({
-        id: 1, //id?
-        startDate: this.startDate,
-        endDate: this.endDate,
-        username: 'prova',
-        licensePlate: myObject.row.licensePlate,
-        approved: false
+  saveBooking(car : any) {
 
-      })
-    }
+    let licensePlate = car['row'].licensePlate
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.bookingService
+      .addBooking(licensePlate, user.id, this.startDate, this.endDate )
+      .subscribe(() =>  car)
   }
 }
