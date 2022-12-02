@@ -29,6 +29,7 @@ export class UserService {
   }
 
   getUserByUsername(username: String): Observable<User> {
+    console.log(username)
     const url = `${this.usersUrl}/get-user-by-username/${username}`;
     return this.http.get<User>(url, this.httpOptions).pipe(
       catchError(this.handleError<User>(`get-user-by-username/${username}`))

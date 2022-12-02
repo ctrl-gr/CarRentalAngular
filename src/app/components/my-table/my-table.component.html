@@ -9,7 +9,7 @@
 </select>
 <input class="searchTerm" type="text" name="searchTerm" placeholder="Enter text to search" [(ngModel)]="searchTerm"/>
 </div>
-<br/> <br/>
+
 <ng-container *ngFor="let action of tableConfig.actions">
   <div *ngIf="action.onTop">
     <app-my-button [buttonConfig]="{text: action.text, customCssClass: action.cssClass, icon: action.icon}" (click)="actionToOutput(action.actionType)" >
@@ -24,7 +24,7 @@
         <button *ngIf="tableConfig.order.orderType === 'desc'" (click)="setOrder('asc', header.key)">
           <mat-icon>arrow_upward</mat-icon>
         </button>
-        <button *ngIf="tableConfig.order.orderType === 'asc'" (click)="setOrder('desc', header.key)">
+        <button *ngIf="tableConfig.order.orderType === 'asc'" (click)="setOrder('desc', header.key)"> <!-- TODO use own -->
           <mat-icon>arrow_downward</mat-icon>
         </button>
       </ng-container>

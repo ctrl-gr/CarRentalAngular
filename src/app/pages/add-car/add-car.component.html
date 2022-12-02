@@ -1,6 +1,9 @@
 <ng-container *ngIf="!isEditMode; else editModeTemplate">
-<ng-container *ngIf="!carSaved; else carAdded">
-<form [formGroup]="carform" (ngSubmit)="saveCar()">
+  <div *ngIf="carSaved" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Yes!</strong> {{message}}
+    <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<form [formGroup]="carform" (ngSubmit)="saveCar()" *ngIf="!carSaved">
   <label for="licensePlate"> License plate:
     <input type="text" id="licensePlate" name="licensePlate" formControlName="licensePlate" />
   </label>
@@ -24,13 +27,13 @@
 </form>
 
 </ng-container>
-<ng-template #carAdded>
-  <h3 class="h3 mb-3 font-weight-normal text-center">Car added successfully</h3>
-</ng-template>
-</ng-container>
 
 <ng-template #editModeTemplate>
-  <form [formGroup]="carform" (ngSubmit)="editCar()">
+  <div *ngIf="carSaved" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Yes!</strong> {{message}}
+    <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <form [formGroup]="carform" (ngSubmit)="editCar()" *ngIf="!carSaved">
     <label for="licensePlate"> License plate:
       <input type="text"  name="licensePlate" formControlName="licensePlate" />
     </label>

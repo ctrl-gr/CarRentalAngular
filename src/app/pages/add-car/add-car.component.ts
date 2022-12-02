@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Car} from "../../models/car-config";
 import {CarService} from "../../services/car.service";
 import {isString} from "lodash";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MyButtonConfig} from "../../components/my-button/my-button-config";
 
 @Component({
@@ -18,11 +18,13 @@ export class AddCarComponent implements OnInit {
   carSaved !: boolean
   isEditMode !: boolean
   carToEdit !: string
+  message !: string
  @Input() buttonConfig !: MyButtonConfig
 
   constructor(
     private carService: CarService,
-    private activatedRoute : ActivatedRoute
+    private activatedRoute : ActivatedRoute,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -44,16 +46,24 @@ export class AddCarComponent implements OnInit {
       year: new FormControl(null, Validators.required),
       seats: new FormControl(null, Validators.required)
     })
-
+  if(!this.isEditMode) {
     this.buttonConfig = {
       customCssClass: 'btn btn-primary',
       text: 'Save car',
       isDisabled: !this.carform.valid
     };
-    console.log(this.buttonConfig.isDisabled)
+  } else {
+    this.buttonConfig = {
+      customCssClass: 'btn btn-primary',
+      text: 'Edit car',
+      isDisabled: !this.carform.valid
+    };
+  }
+
   }
 
   getCarToEdit(licensePlate: string) {
+
     licensePlate = this.carToEdit
     this.carService.getCarByLicensePlate(licensePlate).subscribe(car => {
       this.carform.patchValue({
@@ -75,7 +85,10 @@ export class AddCarComponent implements OnInit {
       this.carService
         .editCar(this.car, licensePlate)
         .subscribe(() =>  this.car)
+    this.carSaved = true
+    this.message = 'Car edited successfully.'
     this.carform.reset()
+
   }
 
   saveCar() {
@@ -85,6 +98,13 @@ export class AddCarComponent implements OnInit {
       .addCar(this.car)
       .subscribe(data =>  this.car)
     this.carSaved = true
+    this.message = 'Car saved successfully.'
+    this.carform.reset()
+  }
+
+  closeAlert() {
+    this.carSaved = false
+    this.router.navigate(['cars'])
   }
 
 }

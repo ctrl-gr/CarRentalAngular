@@ -3,11 +3,7 @@ import {Router} from '@angular/router';
 import {User} from "../models/user-config";
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse, HttpBackend,
-} from '@angular/common/http';
+import {HttpBackend, HttpClient, HttpErrorResponse, HttpHeaders,} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {UserService} from "../services/user.service";
 
@@ -42,9 +38,10 @@ export class AuthService {
       .post<any>(`${this.endpoint}/authenticate`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.jwttoken);
+        console.log('username', user.username, typeof(user.username))
         this.userService.getUserByUsername(user.username).subscribe((user: any) => {
-          localStorage.setItem('user', JSON.stringify(user))
-          this.router.navigate(['homepage'], {queryParams: {isLogged: true}})
+          localStorage.setItem('user', user.username)
+          this.router.navigate(['homepage'], {queryParams: {isLogged : true}})
         })
       });
   }
@@ -53,7 +50,6 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('access_token');
   }
-
 
   get isLoggedIn(): boolean {
     let authToken = this.getToken();
@@ -74,6 +70,7 @@ export class AuthService {
 
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
+    localStorage.clear()
     if (removeToken == null) {
       this.router.navigate(['login'], {queryParams: {isLogged: false}});
     }

@@ -5,3 +5,8 @@ export interface MyButtonConfig {
   type?: string
   isDisabled?: boolean
 }
+
+export const SuccessButton: MyButtonConfig = {
+  customCssClass: 'primary',
+  text: 'Successo'
+}

@@ -1,9 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {MyAction, MyOrder, MyPagination, MySearch, MyTableActionEnum, MyTableConfig} from "../../components/my-table/my-table-config";
+import {
+  MyAction,
+  MyOrder,
+  MyPagination,
+  MySearch,
+  MyTableActionEnum,
+  MyTableConfig
+} from "../../components/my-table/my-table-config";
 import {Car} from "../../models/car-config";
 import {CarService} from "../../services/car.service";
 import {Router} from '@angular/router';
-import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-car-list',
@@ -19,6 +25,9 @@ export class CarListComponent implements OnInit {
   actions !: MyAction[];
   cars: Car[] = [];
   data!: any[];
+  alert !: boolean
+  message !: string
+  carDeleted !: boolean
 
 
 
@@ -144,6 +153,16 @@ export class CarListComponent implements OnInit {
     this.carService.deleteCar(licensePlate).subscribe(()=> {
       this.getCars()
     })
+    this.alert = true
+    this.carDeleted = true
+    this.message = 'Car deleted successfully.'
+  }
+
+  closeAlert() {
+    this.alert = false
+    this.carDeleted = false
+    this.router.navigate(['cars'])
+
   }
 
 }

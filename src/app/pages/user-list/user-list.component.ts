@@ -27,7 +27,8 @@ export class UserListComponent implements OnInit {
   actions !: MyAction[];
   users: User[] = [];
   data!: any[];
-
+  message !: string
+  alert !: boolean
 
   constructor(
     private userService: UserService,
@@ -147,10 +148,17 @@ export class UserListComponent implements OnInit {
     this.userService.deleteUser(username).subscribe(() => {
       this.getUsers()
     })
+    this.alert = true
+    this.message = "User deleted successfully."
   }
 
   editUser(username : string) {
     this.router.navigate(['newuser'], {queryParams: {usertoedit: username}})
     }
+
+  closeAlert() {
+    this.alert = false
+    this.router.navigate(['users'])
+  }
   }
 

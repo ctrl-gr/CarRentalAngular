@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth/auth.service';
 import {ActivatedRoute} from "@angular/router";
 import {isString} from "lodash";
-import {AuthGuardService} from "./auth/auth.guard.service";
+import {MyButtonConfig, SuccessButton} from "./components/my-button/my-button-config";
 
 
 @Component({
@@ -11,21 +11,27 @@ import {AuthGuardService} from "./auth/auth.guard.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn : boolean = false
+  isLoggedIn !: boolean
+  buttonConfig : MyButtonConfig = SuccessButton
 
-  constructor(private authService : AuthService, private activatedRoute : ActivatedRoute) {
+
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-  this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(params => {
     if (params && isString(params['isLogged'])) {
       this.isLoggedIn = Boolean(JSON.parse(params['isLogged']))
     }
 
   })
-  }
 
+    this.isLoggedIn = this.authService.isLoggedIn
+    console.log(this.isLoggedIn)
+
+
+  }
 
 
 }

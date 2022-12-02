@@ -9,11 +9,9 @@ import {
 } from "../../components/my-table/my-table-config";
 import {Booking} from "../../models/booking-config";
 import {BookingService} from "../../services/booking.service";
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import * as moment from "moment/moment";
 import {AuthService} from "../../auth/auth.service";
-import {UserService} from "../../services/user.service";
-import {CarService} from "../../services/car.service";
 
 @Component({
   selector: 'app-booking-list',
@@ -30,7 +28,9 @@ export class BookingListComponent implements OnInit {
   bookings: Booking[] = [];
   data!: any[];
   isAdmin !: boolean;
-
+  alert !: boolean
+  message !: string
+  bookingDeleted !: boolean
 
 
   constructor(
@@ -148,7 +148,7 @@ export class BookingListComponent implements OnInit {
         break;
       }
       case 'delete': {
-        console.log('delete booking',booking)
+        console.log('delete booking', booking)
         this.deleteBooking(booking)
         break;
       }
@@ -171,31 +171,39 @@ export class BookingListComponent implements OnInit {
   }
 
   getMyBookings() {
-    const user = JSON.parse(localStorage.getItem('user') !)
-    let username = user.username
+    const user = localStorage.getItem('user') !
+    let username = user
     this.bookingService.getMyBookings(username).subscribe(data => {
-      console.log(data)
       data.forEach(booking => {
         booking.startDateFormat = moment(booking.startDate).format('DD-MM-YYYY'),
           booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
       })
       this.bookings = data;
     });
-    console.log('here are my bookings',this.bookings)
+    console.log('here are my bookings', this.bookings)
   }
 
-  deleteBooking(booking : Booking) {
-    this.bookingService.deleteBooking(booking).subscribe(()=> {
+  deleteBooking(booking: Booking) {
+    this.bookingService.deleteBooking(booking).subscribe(() => {
       this.getBookings()
     })
+    this.alert = true
+    this.bookingDeleted = true
+    this.message = "Booking deleted successfully."
   }
 
-  approveBooking(booking : Booking) {
-    console.log('booking to send to approve booking', booking)
+  approveBooking(booking: Booking) {
     this.bookingService
       .approveBooking(booking)
       .subscribe(() => booking)
-        this.getBookings()
+    this.getBookings()
+    this.alert = true
+    this.message = "Booking approved successfully."
+  }
+
+  closeAlert() {
+    this.alert = false
+    this.router.navigate(['bookings'])
   }
 }
 

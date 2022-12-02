@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Booking} from "../../models/booking-config";
-import { FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BookingService} from "../../services/booking.service";
 import {
   MyAction,
@@ -31,7 +31,7 @@ export class SetBookingComponent implements OnInit {
   startDate !: Date;
   endDate !: Date;
   cars: Car[] = [];
-
+  alert !: boolean
 
   constructor(
     private bookingService: BookingService,
@@ -129,9 +129,17 @@ export class SetBookingComponent implements OnInit {
   saveBooking(car : any) {
 
     let licensePlate = car['row'].licensePlate
-    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    let user = localStorage.getItem('user') || '{}';
+    console.log(user)
     this.bookingService
-      .addBooking(licensePlate, user.id, this.startDate, this.endDate )
+      .addBooking(licensePlate, user, this.startDate, this.endDate )
       .subscribe(() =>  car)
+    this.alert = true
+    this.bookingform.reset({})
+
+  }
+
+  closeAlert() {
+    this.alert = false
   }
 }

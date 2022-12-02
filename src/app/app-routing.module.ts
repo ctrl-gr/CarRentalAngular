@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { UserListComponent } from "./pages/user-list/user-list.component";
-import { AddUserComponent } from "./pages/add-user/add-user.component";
-import { HomepageComponent} from "./pages/homepage/homepage.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {UserListComponent} from "./pages/user-list/user-list.component";
+import {AddUserComponent} from "./pages/add-user/add-user.component";
+import {HomepageComponent} from "./pages/homepage/homepage.component";
 import {CarListComponent} from "./pages/car-list/car-list.component";
 import {AddCarComponent} from "./pages/add-car/add-car.component";
 import {BookingListComponent} from "./pages/booking-list/booking-list.component";

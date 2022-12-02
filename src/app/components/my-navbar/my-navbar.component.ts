@@ -9,7 +9,8 @@ import {AuthService} from "../../auth/auth.service";
 })
 export class MyNavbarComponent implements OnInit {
 
-  isAdmin : boolean = false
+  isAdmin !: boolean
+
 
   constructor(private authService: AuthService) {
 
@@ -17,6 +18,8 @@ export class MyNavbarComponent implements OnInit {
 
   ngOnInit(): void {
   this.isAdmin = this.authService.checkIsAdmin()
+
+
   }
 
   logout() {

@@ -1,6 +1,10 @@
 <div class="auth-wrapper">
+  <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Yes!</strong> {{message}}
+    <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <ng-container *ngIf="!isEditMode; else isEditModeTemplate">
-    <form class="form" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+    <form class="form" [formGroup]="signupForm" (ngSubmit)="registerUser()" *ngIf="!userSaved">
       <ng-container *ngIf="!isAdmin">
         <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up</h3>
       </ng-container>
@@ -59,7 +63,7 @@
     </form>
   </ng-container>
   <ng-template #isEditModeTemplate>
-    <form class="form" [formGroup]="signupForm" (ngSubmit)="editUser()">
+    <form class="form" [formGroup]="signupForm" (ngSubmit)="editUser()" *ngIf="!userSaved">
       <ng-container *ngIf="!isAdmin">
         <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up</h3>
       </ng-container>

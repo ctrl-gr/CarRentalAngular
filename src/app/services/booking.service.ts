@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
@@ -30,14 +30,14 @@ export class BookingService {
   getMyBookings(username : string): Observable<Booking[]> {
     const url = `${this.bookingsUrl}/my-bookings/${username}`;
     return this.http.get<Booking[]>(url).pipe(
-      catchError(this.handleError<Booking[]>(`my-bookings&id=${username}`))
+      catchError(this.handleError<Booking[]>(`my-bookings/${username}`))
     );
   }
 
 
-  addBooking(licensePlate: string, userId : number, startDate : Date, endDate : Date): Observable<any> {
+  addBooking(licensePlate: string, username : string, startDate : Date, endDate : Date): Observable<any> {
     const url = `${this.bookingsUrl}/save`;
-    return this.http.post<Booking>(url, null,{params: {licensePlate: licensePlate, userId : userId, startDate: startDate.toString(), endDate : endDate.toString()}}).pipe(
+    return this.http.post<Booking>(url, null,{params: {licensePlate: licensePlate, username : username, startDate: startDate.toString(), endDate : endDate.toString()}}).pipe(
       catchError(this.handleError<Booking>('save'))
     );
   }

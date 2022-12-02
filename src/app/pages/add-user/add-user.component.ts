@@ -6,7 +6,6 @@ import {User} from "../../models/user-config";
 import {UserService} from "../../services/user.service";
 import {isString} from "lodash";
 import {MyButtonConfig} from "../../components/my-button/my-button-config";
-import {MyTableActionEnum} from "../../components/my-table/my-table-config";
 
 
 @Component({
@@ -20,8 +19,10 @@ export class AddUserComponent implements OnInit {
   userToEdit !: string
   isEditMode !: boolean
   user !: User
-  userEdited !: boolean
+  userSaved !: boolean
   buttonConfig !: MyButtonConfig
+  alert !: boolean
+  message !: string
 
 
   constructor(
@@ -67,20 +68,34 @@ export class AddUserComponent implements OnInit {
   }
 
   registerUser() {
+
+
     if (!this.isAdmin) {
       this.authService.signUp(this.signupForm.value).subscribe(
         data => {
-          this.router.navigate(['login'], {queryParams: {registrationSuccess: true}})
+          this.userSaved = true
+          this.alert = true
+          this.message = "User saved successfully. Please log in"
+          this.signupForm.reset()
+
         }
       )
+
     } else {
       console.log(this.signupForm.value)
       this.authService.signUp(this.signupForm.value).subscribe(
         data => {
-          this.router.navigate(['newuser'], {queryParams: {registrationSuccess: true}})
+          this.userSaved = true
+          this.alert = true
+          this.message = "User saved successfully."
+          this.signupForm.reset()
+
         }
       )
+
     }
+
+
 
   }
 
@@ -90,7 +105,7 @@ export class AddUserComponent implements OnInit {
       this.signupForm.patchValue({
         firstName: user.firstName,
         lastName: user.lastName,
-        birthDate: user.birthDateFormat,
+        birthDate: user.birthDate,
         username: user.username,
         password: user.password
       })
@@ -103,8 +118,19 @@ export class AddUserComponent implements OnInit {
     this.userService
       .editUser(this.user, this.userToEdit)
       .subscribe(() => this.user)
-    this.userEdited = true
+    this.alert = true
+    this.userSaved = true
+    this.message = "User edited successfully."
+    this.signupForm.reset()
+  }
+
+  closeAlert() {
+    this.userSaved = false
+    if (!this.isAdmin) {
+      this.router.navigate(['login'], {queryParams: {registrationSuccess: true}})
+    } else {
+      this.router.navigate(['homepage'], {queryParams: {registrationSuccess: true}})
+    }
   }
 }
 
-//TODO 1. unsubscribe 3.fix auth guard

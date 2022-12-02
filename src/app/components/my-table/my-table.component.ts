@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { MyTableConfig} from './my-table-config';
+import {MyTableConfig} from './my-table-config';
 import * as _ from 'lodash';
 
 
@@ -10,9 +10,11 @@ import * as _ from 'lodash';
 })
 
 export class MyTableComponent implements OnInit {
+//TODO fix spaces with CSS
 
   @Input() tableConfig!: MyTableConfig;
   @Input() data!: any;
+  @Output() inputActionToPerform = new EventEmitter<object>();
 
   searchTerm = '';
   selected = '';
@@ -50,11 +52,9 @@ export class MyTableComponent implements OnInit {
   }
 
 
-  @Output() inputActionToPerform = new EventEmitter<object>();
-
   actionToOutput(value: string, dataRow?: any) {
 
-    let objectToEmit: {[key: string]: any} = {
+    let objectToEmit: { [key: string]: any } = { //TODO check this why?
       action: value,
       row: dataRow
     }

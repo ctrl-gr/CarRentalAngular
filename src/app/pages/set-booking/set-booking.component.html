@@ -1,4 +1,8 @@
 <router-outlet></router-outlet>
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Yes!</strong> Booking submitted for approval.
+  <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <form class="bookingform" [formGroup]="bookingform" (ngSubmit)="getAvailableCars()">
   <h3> Make a reservation! </h3>
   <div class="input">
@@ -14,6 +18,8 @@
   <input type="submit" [disabled]="!bookingform.valid" class="submit" value="Get available cars">
   </div>
 </form>
+<ng-container *ngIf="!alert">
 <ng-container *ngIf="cars.length > 0">
 <app-my-table [tableConfig]="tableConfig" [data]="cars" (inputActionToPerform)="saveBooking($event)"></app-my-table>
+</ng-container>
 </ng-container>
