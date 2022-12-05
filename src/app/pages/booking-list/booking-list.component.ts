@@ -78,13 +78,6 @@ export class BookingListComponent implements OnInit {
           actionType: MyTableActionEnum.DELETE,
           icon: 'remove',
           onTop: false
-        },
-        {
-          text: 'nuova prenotazione',
-          cssClass: 'btn btn-primary',
-          actionType: MyTableActionEnum.NEW_ROW,
-          icon: 'add',
-          onTop: true
         }
       ]
     } else {
@@ -99,41 +92,69 @@ export class BookingListComponent implements OnInit {
         }
       ]
     }
-
-    this.tableConfig = {
-      headers: [
-        {
-          key: 'startDateFormat',
-          label: 'data inizio',
-        },
-        {
-          key: 'endDateFormat',
-          label: 'data fine',
-        },
-        {
-          key: 'username',
-          label: 'username',
-        },
-        {
-          key: 'licensePlate',
-          label: 'targa',
-        },
-        {
-          key: 'isApproved',
-          label: 'approvato',
-        },
-        {
-          key: 'actions',
-          label: 'azioni'
-        }
-      ],
-      order: this.order,
-      search: this.search,
-      pagination: this.pagination,
-      actions: this.actions
+    if (!this.isAdmin) {
+      this.tableConfig = {
+        headers: [
+          {
+            key: 'startDateFormat',
+            label: 'data inizio',
+          },
+          {
+            key: 'endDateFormat',
+            label: 'data fine',
+          },
+          {
+            key: 'manufacturerModel',
+            label: 'auto',
+          },
+          {
+            key: 'isApproved',
+            label: 'approvato',
+          },
+          {
+            key: 'actions',
+            label: 'azioni'
+          }
+        ],
+        order: this.order,
+        search: this.search,
+        pagination: this.pagination,
+        actions: this.actions
+      }
+    } else {
+      this.tableConfig = {
+        headers: [
+          {
+            key: 'startDateFormat',
+            label: 'data inizio',
+          },
+          {
+            key: 'endDateFormat',
+            label: 'data fine',
+          },
+          {
+            key: 'licensePlate',
+            label: 'targa',
+          },
+          {
+            key: 'username',
+            label: 'username'
+          },
+          {
+            key: 'isApproved',
+            label: 'approvato',
+          },
+          {
+            key: 'actions',
+            label: 'azioni'
+          }
+        ],
+        order: this.order,
+        search: this.search,
+        pagination: this.pagination,
+        actions: this.actions
+      }
     }
-
-
   }
 
   actionToPerform(myObject: any) {
@@ -143,17 +164,11 @@ export class BookingListComponent implements OnInit {
 
     switch (action) {
       case 'approve': {
-        console.log('trying to approve booking', booking)
         this.approveBooking(booking)
         break;
       }
       case 'delete': {
-        console.log('delete booking', booking)
         this.deleteBooking(booking)
-        break;
-      }
-      case 'new-row': {
-        this.router.navigate(['newbooking'])
         break;
       }
     }
@@ -166,7 +181,6 @@ export class BookingListComponent implements OnInit {
           booking.endDateFormat = moment(booking.endDate).format('DD-MM-YYYY')
       })
       this.bookings = data;
-      console.log('here are all the bookings', this.bookings)
     });
   }
 
@@ -180,7 +194,6 @@ export class BookingListComponent implements OnInit {
       })
       this.bookings = data;
     });
-    console.log('here are my bookings', this.bookings)
   }
 
   deleteBooking(booking: Booking) {

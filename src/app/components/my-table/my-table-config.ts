@@ -39,6 +39,7 @@ export interface MyAction {
   actionType: MyTableActionEnum
   icon?: string
   onTop: boolean
-
 }
+
+
 
