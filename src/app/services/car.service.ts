@@ -13,10 +13,11 @@ export class CarService {
   private carsUrl = 'http://localhost:8080/api/cars';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getCars(): Observable<Car[]> {
     const url = `${this.carsUrl}/all`;
@@ -26,9 +27,9 @@ export class CarService {
       );
   }
 
-  getAvailableCars(startDate: Date , endDate: Date): Observable<Car[]> {
+  getAvailableCars(startDate: Date, endDate: Date): Observable<Car[]> {
     const url = `${this.carsUrl}/get-available-cars`;
-    return this.http.get<Car[]>(url, {params: {startDate: startDate.toString(), endDate : endDate.toString()}})
+    return this.http.get<Car[]>(url, {params: {startDate: startDate.toString(), endDate: endDate.toString()}})
       .pipe(
         catchError(this.handleError<Car[]>('get-available-cars', []))
       );
@@ -43,14 +44,14 @@ export class CarService {
 
   }
 
-  editCar(car: Car, licensePlate : String): Observable<Car> {
+  editCar(car: Car, licensePlate: String): Observable<Car> {
     const url = `${this.carsUrl}/edit/${licensePlate}`;
     return this.http.put<Car>(url, car, this.httpOptions).pipe(
       catchError(this.handleError<Car>('edit'))
     );
   }
 
-  getCarByLicensePlate(licensePlate : String): Observable<Car> {
+  getCarByLicensePlate(licensePlate: String): Observable<Car> {
     const url = `${this.carsUrl}/get-car-by-license-plate/${licensePlate}`;
     return this.http.get<Car>(url, this.httpOptions).pipe(
       catchError(this.handleError<Car>(`get-car-by-license-plate/${licensePlate}`))

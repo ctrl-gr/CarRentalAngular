@@ -1,6 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MyTableConfig} from './my-table-config';
 import * as _ from 'lodash';
+import {
+  ArrowBackButton,
+  ArrowDownButton,
+  ArrowForwardButton,
+  ArrowUpButton,
+  MyButtonConfig
+} from "../my-button/my-button-config";
 
 
 @Component({
@@ -9,13 +16,16 @@ import * as _ from 'lodash';
   styleUrls: ['./my-table.component.css'],
 })
 
-export class MyTableComponent implements OnInit {
-//TODO fix spaces with CSS
+export class MyTableComponent implements OnInit, DoCheck {
+
 
   @Input() tableConfig!: MyTableConfig;
   @Input() data!: any;
   @Output() inputActionToPerform = new EventEmitter<object>();
-
+  buttonConfigArrowUp: MyButtonConfig = ArrowUpButton
+  buttonConfigArrowDown: MyButtonConfig = ArrowDownButton
+  buttonConfigArrowBack: MyButtonConfig = ArrowBackButton
+  buttonConfigArrowForward: MyButtonConfig = ArrowForwardButton
   searchTerm = '';
   selected = '';
   pageIndex: number = 0;
@@ -25,7 +35,16 @@ export class MyTableComponent implements OnInit {
   constructor() {
   }
 
+
   ngOnInit() {
+
+    this.data = _.orderBy(this.data, [this.tableConfig.order.defaultColumn])
+    this.totalPages = Math.ceil(this.data.length / this.tableConfig.pagination.itemPerPage)
+
+  }
+
+  ngDoCheck() {
+
     this.data = _.orderBy(this.data, [this.tableConfig.order.defaultColumn])
     this.totalPages = Math.ceil(this.data.length / this.tableConfig.pagination.itemPerPage)
 
@@ -33,8 +52,9 @@ export class MyTableComponent implements OnInit {
 
   changePageOptions($event: any) {
     this.tableConfig.pagination.itemPerPage = +$event.target.value;
-    this.pageIndex = 0;
+    console.log(this.data.length)
     this.totalPages = Math.ceil(this.data.length / this.tableConfig.pagination.itemPerPage)
+    console.log('total pages starts from 0: ', this.totalPages)
   }
 
 

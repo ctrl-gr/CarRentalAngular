@@ -66,4 +66,5 @@ import {RoleGuardService} from "./auth/role.guard.service";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

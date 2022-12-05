@@ -19,13 +19,14 @@ export class AddCarComponent implements OnInit {
   isEditMode !: boolean
   carToEdit !: string
   message !: string
- @Input() buttonConfig !: MyButtonConfig
+  @Input() buttonConfig !: MyButtonConfig
 
   constructor(
     private carService: CarService,
-    private activatedRoute : ActivatedRoute,
-    private router : Router
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -46,19 +47,19 @@ export class AddCarComponent implements OnInit {
       year: new FormControl(null, Validators.required),
       seats: new FormControl(null, Validators.required)
     })
-  if(!this.isEditMode) {
-    this.buttonConfig = {
-      customCssClass: 'btn btn-primary',
-      text: 'Save car',
-      isDisabled: !this.carform.valid
-    };
-  } else {
-    this.buttonConfig = {
-      customCssClass: 'btn btn-primary',
-      text: 'Edit car',
-      isDisabled: !this.carform.valid
-    };
-  }
+    if (!this.isEditMode) {
+      this.buttonConfig = {
+        customCssClass: 'btn btn-primary',
+        text: 'Save car',
+        isDisabled: !this.carform.valid
+      };
+    } else {
+      this.buttonConfig = {
+        customCssClass: 'btn btn-primary',
+        text: 'Edit car',
+        isDisabled: !this.carform.valid
+      };
+    }
 
   }
 
@@ -79,12 +80,11 @@ export class AddCarComponent implements OnInit {
   }
 
   editCar() {
-      this.car = this.carform.value
-      let licensePlate = this.car.licensePlate
-      console.log(this.car)
-      this.carService
-        .editCar(this.car, licensePlate)
-        .subscribe(() =>  this.car)
+    this.car = this.carform.value
+    let licensePlate = this.car.licensePlate
+    this.carService
+      .editCar(this.car, licensePlate)
+      .subscribe(() => this.car)
     this.carSaved = true
     this.message = 'Car edited successfully.'
     this.carform.reset()
@@ -93,10 +93,9 @@ export class AddCarComponent implements OnInit {
 
   saveCar() {
     this.car = this.carform.value
-    console.log(this.car)
     this.carService
       .addCar(this.car)
-      .subscribe(data =>  this.car)
+      .subscribe(data => this.car)
     this.carSaved = true
     this.message = 'Car saved successfully.'
     this.carform.reset()

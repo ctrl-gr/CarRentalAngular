@@ -152,13 +152,13 @@ export class UserListComponent implements OnInit {
     this.message = "User deleted successfully."
   }
 
-  editUser(username : string) {
+  editUser(username: string) {
     this.router.navigate(['newuser'], {queryParams: {usertoedit: username}})
-    }
+  }
 
   closeAlert() {
     this.alert = false
     this.router.navigate(['users'])
   }
-  }
+}
 

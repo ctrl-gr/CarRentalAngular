@@ -96,7 +96,6 @@ export class AddUserComponent implements OnInit {
     }
 
 
-
   }
 
   getUserToEdit(username: string) {

@@ -3,5 +3,6 @@
   <strong>Yes!</strong> {{message}}
   <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-<app-my-table [tableConfig]="tableConfig" [data]="bookings" (inputActionToPerform)="actionToPerform($event)" *ngIf="!bookingDeleted"></app-my-table>
+<app-my-table [tableConfig]="tableConfig" [data]="bookings" (inputActionToPerform)="actionToPerform($event)"
+              *ngIf="!bookingDeleted"></app-my-table>
 

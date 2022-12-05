@@ -36,12 +36,13 @@ export class SetBookingComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private carService: CarService,
-    public router : Router
-  ) { }
+    public router: Router
+  ) {
+  }
 
   checkDates(bookingform: FormGroup) {
-    if(bookingform.controls['endDate'].value < bookingform.controls['startDate'].value) {
-      return { notValid:true }
+    if (bookingform.controls['endDate'].value < bookingform.controls['startDate'].value) {
+      return {notValid: true}
     }
     return null;
   }
@@ -113,27 +114,27 @@ export class SetBookingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.startDate  = this.bookingform.controls['startDate'].value
+    this.startDate = this.bookingform.controls['startDate'].value
     this.endDate = this.bookingform.controls['endDate'].value
   }
 
   getAvailableCars() {
     this.startDate = this.bookingform.value['startDate']
     this.endDate = this.bookingform.value['endDate']
-   this.carService.getAvailableCars(this.startDate, this.endDate).subscribe( data =>
-    this.cars = data
-   )
+    this.carService.getAvailableCars(this.startDate, this.endDate).subscribe(data =>
+      this.cars = data
+    )
   }
 
 
-  saveBooking(car : any) {
+  saveBooking(car: any) {
 
     let licensePlate = car['row'].licensePlate
     let user = localStorage.getItem('user') || '{}';
     console.log(user)
     this.bookingService
-      .addBooking(licensePlate, user, this.startDate, this.endDate )
-      .subscribe(() =>  car)
+      .addBooking(licensePlate, user, this.startDate, this.endDate)
+      .subscribe(() => car)
     this.alert = true
     this.bookingform.reset({})
 

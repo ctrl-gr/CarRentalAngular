@@ -37,15 +37,13 @@ export class LoginComponent implements OnInit {
     })
   }
 
-    loginUser()
-    {
-      this.authService.signIn(this.signinForm.value);
-      this.isLoggedIn = this.authService.isLoggedIn
-      this.isAdmin = this.authService.checkIsAdmin()
-    }
-
-    signUp()
-    {
-      this.router.navigate(['newuser'])
-    }
+  loginUser() {
+    this.authService.signIn(this.signinForm.value);
+    this.isLoggedIn = this.authService.isLoggedIn
+    this.isAdmin = this.authService.checkIsAdmin()
   }
+
+  signUp() {
+    this.router.navigate(['newuser'])
+  }
+}

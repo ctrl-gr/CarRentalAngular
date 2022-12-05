@@ -13,15 +13,15 @@ import {RoleGuardService} from "./auth/role.guard.service";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuardService]},
-  { path: 'users', component: UserListComponent, canActivate: [AuthGuardService, RoleGuardService] },
-  { path: 'cars', component: CarListComponent, canActivate: [AuthGuardService, RoleGuardService]},
-  { path: 'newuser', component: AddUserComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'homepage', component: HomepageComponent, canActivate: [AuthGuardService]},
+  {path: 'users', component: UserListComponent, canActivate: [AuthGuardService, RoleGuardService]},
+  {path: 'cars', component: CarListComponent, canActivate: [AuthGuardService, RoleGuardService]},
+  {path: 'newuser', component: AddUserComponent},
   {path: 'newcar', component: AddCarComponent, canActivate: [AuthGuardService, RoleGuardService]},
   {path: 'newbooking', component: SetBookingComponent, canActivate: [AuthGuardService]},
   {path: 'bookings', component: BookingListComponent, canActivate: [AuthGuardService]},
-  { path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
@@ -29,4 +29,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot((routes))],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

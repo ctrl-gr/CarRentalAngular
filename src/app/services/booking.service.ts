@@ -13,10 +13,11 @@ export class BookingService {
   private bookingsUrl = 'http://localhost:8080/api/bookings';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getBookings(): Observable<Booking[]> {
     const url = `${this.bookingsUrl}/all`;
@@ -27,7 +28,7 @@ export class BookingService {
   }
 
 
-  getMyBookings(username : string): Observable<Booking[]> {
+  getMyBookings(username: string): Observable<Booking[]> {
     const url = `${this.bookingsUrl}/my-bookings/${username}`;
     return this.http.get<Booking[]>(url).pipe(
       catchError(this.handleError<Booking[]>(`my-bookings/${username}`))
@@ -35,22 +36,29 @@ export class BookingService {
   }
 
 
-  addBooking(licensePlate: string, username : string, startDate : Date, endDate : Date): Observable<any> {
+  addBooking(licensePlate: string, username: string, startDate: Date, endDate: Date): Observable<any> {
     const url = `${this.bookingsUrl}/save`;
-    return this.http.post<Booking>(url, null,{params: {licensePlate: licensePlate, username : username, startDate: startDate.toString(), endDate : endDate.toString()}}).pipe(
+    return this.http.post<Booking>(url, null, {
+      params: {
+        licensePlate: licensePlate,
+        username: username,
+        startDate: startDate.toString(),
+        endDate: endDate.toString()
+      }
+    }).pipe(
       catchError(this.handleError<Booking>('save'))
     );
   }
 
-  approveBooking(booking : Booking): Observable<Booking> {
+  approveBooking(booking: Booking): Observable<Booking> {
     const url = `${this.bookingsUrl}/approve`;
     console.log('ready to send this booking', booking)
-    return this.http.put<Booking>(url,booking, this.httpOptions).pipe(
+    return this.http.put<Booking>(url, booking, this.httpOptions).pipe(
       catchError(this.handleError<Booking>('approve'))
     );
   }
 
-  deleteBooking(booking : Booking): Observable<any> {
+  deleteBooking(booking: Booking): Observable<any> {
     const url = `${this.bookingsUrl}/delete`;
     return this.http.post<Booking>(url, booking, this.httpOptions)
   }

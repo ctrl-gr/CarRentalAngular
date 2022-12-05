@@ -30,14 +30,13 @@ export class CarListComponent implements OnInit {
   carDeleted !: boolean
 
 
-
   constructor(private carService: CarService,
               private router: Router) {
   }
 
   ngOnInit() {
 
-      this.getCars()
+    this.getCars()
 
 
     this.pagination = {
@@ -145,12 +144,12 @@ export class CarListComponent implements OnInit {
   }
 
 
-  editCar(licensePlate : string) {
+  editCar(licensePlate: string) {
     this.router.navigate(['newcar'], {queryParams: {cartoedit: licensePlate}})
   }
 
-  deleteCar(licensePlate : string) {
-    this.carService.deleteCar(licensePlate).subscribe(()=> {
+  deleteCar(licensePlate: string) {
+    this.carService.deleteCar(licensePlate).subscribe(() => {
       this.getCars()
     })
     this.alert = true

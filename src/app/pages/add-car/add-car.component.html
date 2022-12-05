@@ -3,28 +3,28 @@
     <strong>Yes!</strong> {{message}}
     <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-<form [formGroup]="carform" (ngSubmit)="saveCar()" *ngIf="!carSaved">
-  <label for="licensePlate"> License plate:
-    <input type="text" id="licensePlate" name="licensePlate" formControlName="licensePlate" />
-  </label>
-  <label for="manufacturer"> Manufacturer:
-    <input type="text" id="manufacturer" name="manufacturer" formControlName="manufacturer" />
-  </label>
-  <label for="model"> Model:
-    <input type="text" id="model" name="model" formControlName="model" />
-  </label>
-  <label for="type"> Type:
-    <input type="text" id="type" name="type" formControlName="type" />
-  </label>
-  <label for="year"> Year:
-    <input type="number" id="year" name="year" formControlName="year" />
-  </label>
-  <label for="seats"> Seats:
-    <input type="number" id="seats" name="seats" formControlName="seats" />
-  </label>
-  <br>
-  <app-my-button [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.carform.valid}"></app-my-button>
-</form>
+  <form [formGroup]="carform" (ngSubmit)="saveCar()" *ngIf="!carSaved">
+    <label for="licensePlate"> License plate:
+      <input type="text" id="licensePlate" name="licensePlate" formControlName="licensePlate"/>
+    </label>
+    <label for="manufacturer"> Manufacturer:
+      <input type="text" id="manufacturer" name="manufacturer" formControlName="manufacturer"/>
+    </label>
+    <label for="model"> Model:
+      <input type="text" id="model" name="model" formControlName="model"/>
+    </label>
+    <label for="type"> Type:
+      <input type="text" id="type" name="type" formControlName="type"/>
+    </label>
+    <label for="year"> Year:
+      <input type="number" id="year" name="year" formControlName="year"/>
+    </label>
+    <label for="seats"> Seats:
+      <input type="number" id="seats" name="seats" formControlName="seats"/>
+    </label>
+    <app-my-button
+      [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.carform.valid}"></app-my-button>
+  </form>
 
 </ng-container>
 
@@ -35,25 +35,25 @@
   </div>
   <form [formGroup]="carform" (ngSubmit)="editCar()" *ngIf="!carSaved">
     <label for="licensePlate"> License plate:
-      <input type="text"  name="licensePlate" formControlName="licensePlate" />
+      <input type="text" name="licensePlate" formControlName="licensePlate"/>
     </label>
     <label for="manufacturer"> Manufacturer:
-      <input type="text"  name="manufacturer" formControlName="manufacturer" />
+      <input type="text" name="manufacturer" formControlName="manufacturer"/>
     </label>
     <label for="model"> Model:
-      <input type="text" name="model" formControlName="model" />
+      <input type="text" name="model" formControlName="model"/>
     </label>
     <label for="type"> Type:
-      <input type="text"  name="type" formControlName="type" />
+      <input type="text" name="type" formControlName="type"/>
     </label>
     <label for="year"> Year:
-      <input type="number" name="year" formControlName="year" />
+      <input type="number" name="year" formControlName="year"/>
     </label>
     <label for="seats"> Seats:
-      <input type="number"  name="seats" formControlName="seats" />
+      <input type="number" name="seats" formControlName="seats"/>
     </label>
-    <br>
-    <app-my-button [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.carform.valid}"></app-my-button>
+    <app-my-button
+      [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.carform.valid}"></app-my-button>
   </form>
 </ng-template>
 

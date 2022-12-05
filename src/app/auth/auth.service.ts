@@ -38,10 +38,10 @@ export class AuthService {
       .post<any>(`${this.endpoint}/authenticate`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.jwttoken);
-        console.log('username', user.username, typeof(user.username))
+        console.log('username', user.username, typeof (user.username))
         this.userService.getUserByUsername(user.username).subscribe((user: any) => {
           localStorage.setItem('user', user.username)
-          this.router.navigate(['homepage'], {queryParams: {isLogged : true}})
+          this.router.navigate(['homepage'], {queryParams: {isLogged: true}})
         })
       });
   }

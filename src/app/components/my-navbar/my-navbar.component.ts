@@ -17,7 +17,7 @@ export class MyNavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.isAdmin = this.authService.checkIsAdmin()
+    this.isAdmin = this.authService.checkIsAdmin()
 
 
   }
