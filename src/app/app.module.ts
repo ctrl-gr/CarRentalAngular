@@ -25,6 +25,10 @@ import {SetBookingComponent} from './pages/set-booking/set-booking.component';
 import {CommonModule} from "@angular/common";
 import {AuthGuardService} from "./auth/auth.guard.service";
 import {RoleGuardService} from "./auth/role.guard.service";
+import {MyDynamicFormComponent} from './components/my-dynamic-form/my-dynamic-form.component';
+import {
+  MyDynamicFormQuestionComponent
+} from "./components/my-dynamic-form/my-dynamic-form-question/my-dynamic-form-question.component";
 
 
 @NgModule({
@@ -44,6 +48,8 @@ import {RoleGuardService} from "./auth/role.guard.service";
     AddCarComponent,
     LoginComponent,
     SetBookingComponent,
+    MyDynamicFormComponent,
+    MyDynamicFormQuestionComponent
 
   ],
   imports: [
@@ -53,7 +59,7 @@ import {RoleGuardService} from "./auth/role.guard.service";
     MatIconModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule, // remove it when a real server is ready to receive requests
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [

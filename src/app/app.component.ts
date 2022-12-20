@@ -22,12 +22,10 @@ export class AppComponent implements OnInit {
       if (params && isString(params['isLogged'])) {
         this.isLoggedIn = Boolean(JSON.parse(params['isLogged']))
       }
-
     })
 
     this.isLoggedIn = this.authService.isLoggedIn
     console.log(this.isLoggedIn)
-
 
   }
 

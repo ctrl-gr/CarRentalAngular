@@ -1,126 +1,15 @@
-<div class="auth-wrapper">
+<div>
   <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Yes!</strong> {{message}}
     <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-  <ng-container *ngIf="!isEditMode; else isEditModeTemplate">
-    <form class="form" [formGroup]="signupForm" (ngSubmit)="registerUser()" *ngIf="!userSaved">
-      <ng-container *ngIf="!isAdmin">
-        <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up</h3>
-      </ng-container>
-
-      <div class="form-group">
-        <label>First name</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="firstName"
-          placeholder="Enter first name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Last name</label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="lastName"
-          placeholder="Enter last name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Date of birth</label>
-        <input
-          type="date"
-          class="form-control"
-          formControlName="birthDate"
-          placeholder="Enter date of birth"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="username"
-          placeholder="Enter username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          placeholder="Password"
-          required
-        />
-      </div>
-      <app-my-button
-        [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.signupForm.valid}"></app-my-button>
-    </form>
+  <ng-container *ngIf="!isEditMode; else registerTemplate">
+    <app-my-dynamic-form *ngIf="questions.length > 0 && !userSaved" [questions]="questions"
+                         (onSubmit)="registerUser($event)"></app-my-dynamic-form>
   </ng-container>
-  <ng-template #isEditModeTemplate>
-    <form class="form" [formGroup]="signupForm" (ngSubmit)="editUser()" *ngIf="!userSaved">
-      <ng-container *ngIf="!isAdmin">
-        <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up</h3>
-      </ng-container>
-
-      <div class="form-group">
-        <label>First name</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="firstName"
-          placeholder="Enter first name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Last name</label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="lastName"
-          placeholder="Enter last name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Date of birth</label>
-        <input
-          type="date"
-          class="form-control"
-          formControlName="birthDate"
-          placeholder="Enter date of birth"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="username"
-          placeholder="Enter username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          placeholder="Password"
-          required
-        />
-      </div>
-      <app-my-button
-        [buttonConfig]="{text: buttonConfig.text, customCssClass: buttonConfig.customCssClass, isDisabled: !this.signupForm.valid}"></app-my-button>
-    </form>
+  <ng-template #registerTemplate>
+    <app-my-dynamic-form *ngIf="questions.length > 0 && !userSaved" [questions]="questions"
+                         (onSubmit)="editUser($event)"></app-my-dynamic-form>
   </ng-template>
 </div>
+

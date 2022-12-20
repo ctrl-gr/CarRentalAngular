@@ -96,10 +96,6 @@ export class UserListComponent implements OnInit {
           label: 'username',
         },
         {
-          key: 'password',
-          label: 'password',
-        },
-        {
           key: 'actions',
           label: 'azioni'
         }
